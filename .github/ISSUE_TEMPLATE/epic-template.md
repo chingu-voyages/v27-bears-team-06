@@ -7,13 +7,13 @@ assignees: ''
 
 ---
 
-**Feature Description**
+**__Feature Description__**
 Describe what the feature is intended to accomplish & why it's important
 
-**Major User Stories**
-- [ ] User Story #1
-- [ ] User Story #2
-- [ ] Additional User Stories as necessary
+**__Major User Stories/tasks__**
+- [ ] User Story or Task  #1
+- [ ] User Story or Task #2
+- [ ] Additional User Stories or Tasks as necessary
 
-**Additional Considerations**
+**__Additional Considerations__**
 Include anything else that may be helpful. For example, links to external resources.
