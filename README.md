@@ -25,10 +25,10 @@
     <img src="https://chingu.io/logo-with-text-192.png" alt="Logo" height="80">
   </a>
 
-  <h3 align="center">project_title </h3>
+  <h3 align="center">Bird Identifier </h3>
 
   <p align="center">
-    Bird Identifier | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
+    Bird identification through deep learning | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
     <br />
     <a href="https://github.com/chingu-voyages/v27-bears-team-06"><strong>Explore the docs »</strong></a>
     <br />
@@ -85,8 +85,6 @@ Give users the ability to send photo URL of a bird to a web app that will determ
 * [React](https://reactjs.org/)
 * [Go](https://golang.org/)
 * [Pytorch](https://pytorch.org/)
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
