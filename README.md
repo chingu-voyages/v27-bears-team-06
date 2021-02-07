@@ -28,7 +28,7 @@
   <h3 align="center">project_title </h3>
 
   <p align="center">
-    project_description | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
+    Bird Identifier | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
     <br />
     <a href="https://github.com/chingu-voyages/v27-bears-team-06"><strong>Explore the docs »</strong></a>
     <br />
@@ -76,19 +76,15 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-# v27-bears-team-06
-Add-project-description-here | Voyage-27 | https://chingu.io/ | Twitter: https://twitter.com/ChinguCollabs
+People often see birds they are unfamiliar with and want to identify them and learn more about them.
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`chingu-voyages`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
+Give users the ability to send photo URL of a bird to a web app that will determine if the bird is recognized and if so, respond with the name of the bird. If the image isn’t recognized the app will simply respond that it isn’t recognized.
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [React](https://reactjs.org/)
+* [Go](https://golang.org/)
+* [Pytorch](https://pytorch.org/)
 
 
 
