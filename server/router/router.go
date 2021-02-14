@@ -20,5 +20,6 @@ func SetupRouter() *gin.Engine {
 	// routes
 	router.GET("/ping", controller.Pong)
 	router.POST("/bird", controller.SendBird)
+	router.POST("/bird-image", controller.SendBirdImage)
 	return router
 }
