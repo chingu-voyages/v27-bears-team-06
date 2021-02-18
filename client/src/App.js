@@ -15,14 +15,17 @@ class App extends React.Component{
   
 	  const formData = new FormData();
 	  formData.append('file', files[0]);
-	  formData.append('upload_preset', 'bird-preset');
+	  formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
   
 	  const options = {
 		method: 'POST',
 		body: formData,
+    // mode: 'cors', 
+
 	  };
 	
-	  return fetch('https://api.cloudinary.com/v1_1/dlnsbto5l/image/upload', options)
+
+	  return fetch('https://api.cloudinary.com/v1_1/${REACT_APP_CLOUD_NAME}/image/upload', options)
 		.then(res => res.json())
 		.then(res => {
 		  this.setState({
@@ -36,8 +39,8 @@ class App extends React.Component{
 	openWidget = () => {
 	  window.cloudinary.createUploadWidget(
 		{
-		  cloudName: 'dlnsbto5l',
-		  uploadPreset: 'bird-preset',
+		  cloudName: process.env.REACT_APP_CLOUD_NAME,
+		  uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
 		},	
 		(error, { event, info }) => {
 		  if (event === 'success') {
@@ -77,7 +80,7 @@ class App extends React.Component{
 		</main>
 	  );
 	}
-  }
+}
   
 export default App;
 
