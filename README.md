@@ -57,7 +57,6 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
         <li><a href="#front-end-setup">Front End Setup</a></li>
         <li><a href="#back-end-setup">Back End Setup</a></li>
       </ul>
