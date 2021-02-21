@@ -89,7 +89,7 @@ Give users the ability to send photo URL of a bird to a web app that will determ
 * [Go](https://golang.org/)
 * [Gin](https://github.com/codehakase/golang-gin)
 * [Pytorch](https://pytorch.org/)
-* [Flask] (https://flask.palletsprojects.com/en/1.1.x/)
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
