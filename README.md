@@ -93,21 +93,36 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Clone the repo
+1. [Install Golang](https://golang.org/doc/install)
+2. Clone the repo
    ```sh
    git clone https://github.com/chingu-voyages/v27-bears-team-06.git
+   ```
+
+### Installation -- Front End
+
+1. Enter client directory
+   ```
+   cd .\client\
    ```
 2. Install NPM packages
    ```sh
    npm install
+   ```
+3. Start local
+   ```sh
+   npm run start
+   ```
+   
+### Installation -- Back End
+
+1. Enter client directory
+   ```
+   cd .\server\
+   ```
+2. Start local
+   ```sh
+   go run main.go
    ```
 
 
