@@ -16,14 +16,15 @@ func SetupRouter() *gin.Engine {
 
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("./build", true)))
-
+	api := router.Group("/api")
 	// Middlewares
 	// router.Use(middlewares.ErrorHandler)
 	// router.Use(middlewares.CORSMiddleware())
 
 	// routes
-	router.GET("/ping", controller.Pong)
-	router.POST("/bird", controller.SendBird)
-	router.POST("/bird-image", controller.SendBirdImage)
+	api.GET("/ping", controller.Pong)
+	api.POST("/bird", controller.SendBird)
+	api.POST("/bird-image", controller.SendBirdImage)
+
 	return router
 }
