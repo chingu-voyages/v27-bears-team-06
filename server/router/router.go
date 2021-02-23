@@ -15,7 +15,7 @@ func SetupRouter() *gin.Engine {
 	router.MaxMultipartMemory = 8 << 20 // 8 MiB
 
 	// Serve frontend static files
-	router.Use(static.Serve("/", static.LocalFile("./build", true)))
+	router.Use(static.Serve("/", static.LocalFile("./web", true)))
 	api := router.Group("/api")
 	// Middlewares
 	// router.Use(middlewares.ErrorHandler)
