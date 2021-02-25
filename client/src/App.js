@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import About from './components/About';
+// import Map from './components/Map';
 import ImageContainer from './containers/ImageContainer';
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
 		<Header/>
 		<About/>
 		<ImageContainer/>
+		{/* <Map/> */}
 		</>
 	)
 }
