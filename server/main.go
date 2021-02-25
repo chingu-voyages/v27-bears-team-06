@@ -18,8 +18,8 @@ func main() {
 		}
 	}
 
-	// port := os.Getenv("PORT")
+	port := os.Getenv("PORT")
 
 	r := router.SetupRouter()
-	r.Run()
+	r.Run(":" + port)
 }
