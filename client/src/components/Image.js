@@ -3,24 +3,56 @@ import React from 'react';
 export default function image ({onInputChange,openWidget,imageUrl,imageAlt}) {
     
     return (
-        <main  className="App">
-          <section className="left-side">
-          <form>
-            <div className="form-group">
-              <input type="file"/>
+      <div>
+        <div class="lg:2/6 xl:w-2/4 mt-4 lg:mt-40 lg:ml-16 text-left flex flex-col items-center">
+
+          <button class="mt-2 px-8 py-4 rounded-full ont-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-blue-700 transition duration-200 ease-in-out"
+            onClick={openWidget}>
+            Upload Image Via Widget
+          </button>
+
+        <div class="mt-12 lg:mt-32 lg:ml-20 text-left">
+          <bottom type="button" class="flex items-center justify-center w-12 h-12 rounded-full bg-cool-gray-100 text-gray-800 animate-bounce hover:text-gray-900 hover:bg-cool-gray-50 transition duration-300 ease-in-out cursor-pointer">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+          </bottom>
+         </div>
+        </div>
+
+      <div class="p-40">
+        <div class="w-96 m-auto ">
+             <div class=" grid grid-cols-3 grid-rows-7 grid-flow-row overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                <div class="col-span-3 row-span-4 p-1 m-1">
+                  {imageUrl && (
+                    <img src={imageUrl} alt={imageAlt} className="displayed-image"/>
+                  )}  
+                </div>
+
+                
+              <div class="col-span-3 row-span-1">
+                <div class="flex align-bottom flex-col leading-none p-2 md:p-4">
+                  <div class="flex flex-row justify-between items-center">
+                    <a class="flex items-center no-underline hover:underline text-black"href="#">
+                    </a>
+                  </div>
+                </div>
+              </div>
+          
+          <div class="col-span-3 row-span-1">
+              <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+                 <h1 class="text-lg">
+                  <a class="no-underline hover:underline text-black" href="#">
+                    {/* Predicted : Bird name
+                    Confidence: [0-100]% 
+                    Map: */}
+                  </a>
+                </h1>
+              </header>
             </div>
-            <button type="button" className="btn" onClick={onInputChange}>Submit</button>		  
-            <button type="button" className="btn widget-btn" onClick={openWidget}>Upload Via Widget</button>
-          </form>       
-             <div>
           </div>
-          </section>
-          <section className="right-side">
-          <p>The resulting image will be displayed here</p>
-              {imageUrl && (
-              <img src={imageUrl} alt={imageAlt} className="displayed-image"/>
-          )}  
-          </section>
-       </main>	         
-    )
+        </div>
+      </div>
+    </div>
+  );
 }
