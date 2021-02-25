@@ -21,7 +21,7 @@ class ImageContainer extends React.Component{
   body: formData,
   };
 
-  return fetch('https://api.cloudinary.com/v1_1/${REACT_APP_CLOUD_NAME}/image/upload', response )
+  return fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, response)
      
   .then(res => res.json())
   .then(res => {
