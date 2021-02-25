@@ -12,6 +12,8 @@ import (
 //Bird request from form data
 type Bird struct {
 	URL string `form:"url"`
+	lat int    `form:"lat"`
+	lng int    `form:"lng"`
 }
 
 // Pong tests that api is working
