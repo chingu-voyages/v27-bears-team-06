@@ -36,6 +36,7 @@ class ImageContainer extends React.Component{
 //open the widget
 //open the widget
 openWidget = () => {
+    console.log('👀 ~ file: ImageContainer.js ~ line 44 ~ ImageContainer ~ process.env.REACT_APP_CLOUD_NAME', process.env.REACT_APP_CLOUD_NAME, process.env.REACT_APP_UPLOAD_PRESET);
   window.cloudinary.createUploadWidget(
   {
     cloudName: process.env.REACT_APP_CLOUD_NAME,
