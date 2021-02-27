@@ -21,13 +21,11 @@ RUN chmod +x ./main
 EXPOSE 8080
 
 # Copy .env file and shell script to container
-COPY --from=builder /app/client/env.sh ./web
-COPY --from=builder /app/client/.env.example ./web
-
-# Add bash
-RUN apk add --no-cache bash
+COPY --from=builder /app/client/env.sh ./
+COPY --from=builder /app/client/.env.example ./
 
 # Make our shell script executable
-RUN chmod +x ./web/env.sh
+RUN chmod +x ./env.sh
 
-CMD ["./main", "-c", "./web/env.sh"]
+CMD ["/bin/sh", "-c", "./env.sh && ./main"]
+
