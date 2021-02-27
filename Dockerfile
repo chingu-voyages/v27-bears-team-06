@@ -22,7 +22,7 @@ EXPOSE 8080
 
 # Copy .env file and shell script to container
 COPY --from=builder /app/client/env.sh ./web
-COPY --from=builder /app/client/.env ./web
+COPY --from=builder /app/client/.env.example ./web
 
 # Add bash
 RUN apk add --no-cache bash
@@ -30,4 +30,4 @@ RUN apk add --no-cache bash
 # Make our shell script executable
 RUN chmod +x ./web/env.sh
 
-CMD ./main
+CMD ["./main", "-c", "./web/env.sh"]
