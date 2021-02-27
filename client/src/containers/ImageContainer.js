@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from '../components/Image';
+import settings from '../config/settings'
 
 class ImageContainer extends React.Component{
   
@@ -14,14 +15,14 @@ class ImageContainer extends React.Component{
     
   const formData = new FormData();
   formData.append('file', files[0]);
-  formData.append('upload_preset', window._env_.REACT_APP_UPLOAD_PRESET);
+  formData.append('upload_preset', settings.REACT_APP_UPLOAD_PRESET);
 
   const response = {
   method: 'POST',
   body: formData,
   };
 
-  return fetch(`https://api.cloudinary.com/v1_1/${window._env_.REACT_APP_CLOUD_NAME}/image/upload`, response)
+  return fetch(`https://api.cloudinary.com/v1_1/${settings.REACT_APP_CLOUD_NAME}/image/upload`, response)
      
   .then(res => res.json())
   .then(res => {
@@ -34,19 +35,15 @@ class ImageContainer extends React.Component{
   .catch(err => console.log(err));
 }
 //open the widget
-//open the widget
 openWidget = () => {
-    console.log('👀 ~ file: ImageContainer.js ~ line 42 ~ ImageContainer ~ window._env_', window);
-    console.log('👀 ~ file: ImageContainer.js ~ line 42 ~ ImageContainer ~ window._env_', window._env_);
-    // console.log('👀 ~ file: ImageContainer.js ~ line 44 ~ ImageContainer ~ window._env_.REACT_APP_CLOUD_NAME', window._env_.REACT_APP_CLOUD_NAME, window._env_.REACT_APP_UPLOAD_PRESET, window._env_.PORT);
   window.cloudinary.createUploadWidget(
   {
-    cloudName: window._env_.REACT_APP_CLOUD_NAME,
-    uploadPreset: window._env_.REACT_APP_UPLOAD_PRESET,
+    cloudName: settings.REACT_APP_CLOUD_NAME,
+    uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
   },	
   (error, { event, info }) => {
     if (event === 'success') {
-      //     fetch('https://api.cloudinary.com/v1_1/${window._env_.REACT_APP_API_URL}/bird', {
+      //     fetch('https://api.cloudinary.com/v1_1/${settings.REACT_APP_API_URL}/bird', {
       //       method: 'POST',
       //       }
       //       .then(event => response.json())
