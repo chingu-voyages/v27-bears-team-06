@@ -21,5 +21,5 @@ func main() {
 	port := os.Getenv("PORT")
 
 	r := router.SetupRouter()
-	r.Run(port)
+	r.Run(":" + port)
 }

@@ -19,4 +19,13 @@ COPY --from=builder /main ./
 COPY --from=node_builder /build ./web
 RUN chmod +x ./main
 EXPOSE 8080
-CMD ./main
+
+# Copy .env file and shell script to container
+COPY --from=builder /app/client/env.sh ./
+COPY --from=builder /app/client/.env.example ./
+
+# Make our shell script executable
+RUN chmod +x ./env.sh
+
+CMD ["/bin/sh", "-c", "./env.sh && ./main"]
+
