@@ -4,6 +4,8 @@ import About from './components/About';
 // import Map from './components/Map';
 import ImageContainer from './containers/ImageContainer';
 import './App.css';
+import axios from 'axios';
+import settings from './config/settings';
 
 function App() {
     const [userLocation, setUserLocation] = useState({
@@ -24,16 +26,19 @@ function App() {
         }
     }, []);
 
-	return (
-		<>
-		<Header/>
-		<About/>
-		<ImageContainer userLocation={userLocation} />
-		{/* <Map/> */}
-		</>
-	)
+    const pingApi = async () => {
+        const response = await axios.get(`${settings.REACT_APP_API_URL}/ping`);
+        console.log('👀 ~ file: App.js ~ line 14 ~ pingApi ~ response', response);
+    };
+
+    return (
+        <>
+            <button onClick={pingApi}>PING</button>
+            <Header />
+            <About />
+            <ImageContainer userLocation={userLocation} />
+            {/* <Map/> */}
+        </>
+    );
 }
 export default App;
-
-
-

@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/v27-bears-team-06/server/controller"
+	"github.com/v27-bears-team-06/server/middlewares"
 
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -17,14 +18,16 @@ func SetupRouter() *gin.Engine {
 	// Serve frontend static files
 	router.Use(static.Serve("/", static.LocalFile("./web", true)))
 	api := router.Group("/api")
+
 	// Middlewares
-	// router.Use(middlewares.ErrorHandler)
-	// router.Use(middlewares.CORSMiddleware())
+	router.Use(middlewares.ErrorHandler)
+	router.Use(middlewares.CORSMiddleware())
 
 	// routes
 	api.GET("/ping", controller.Pong)
 	api.POST("/bird", controller.SendBird)
-	api.POST("/bird-image", controller.SendBirdImage)
+	api.POST("/bird-mock", controller.MockSendBird)
+	// api.POST("/bird-image", controller.SendBirdImage)
 
 	return router
 }
