@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from '../components/Image';
+import settings from '../config/settings'
 
 
 class ImageContainer extends React.Component{
@@ -16,38 +17,37 @@ class ImageContainer extends React.Component{
 
 //   const { files } = document.querySelector('input[type="file"]')
     
-//   const formData = new FormData();
-//   formData.append('file', files[0]);
-//   formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
+  const formData = new FormData();
+  formData.append('file', files[0]);
+  formData.append('upload_preset', settings.REACT_APP_UPLOAD_PRESET);
 
 //   const response = {
 //   method: 'POST',
 //   body: formData,
 //   };
 
-//   return fetch('https://api.cloudinary.com/v1_1/${REACT_APP_CLOUD_NAME}/image/upload', response )
+  return fetch(`https://api.cloudinary.com/v1_1/${settings.REACT_APP_CLOUD_NAME}/image/upload`, response)
      
-//   .then(res => res.json())
-//   .then(res => {
-//     // console.log('Image received ', res)
-//     this.setState({
-//     imageUrl: res.secure_url,
-//     imageAlt: `An image of ${res.original_filename}`
-//     })
-//   })
-//   .catch(err => console.log(err));
-// }
-
+  .then(res => res.json())
+  .then(res => {
+    // console.log('Image received ', res)
+    this.setState({
+    imageUrl: res.secure_url,
+    imageAlt: `An image of ${res.original_filename}`
+    })
+  })
+  .catch(err => console.log(err));
+}
 //open the widget
 openWidget = () => {
   window.cloudinary.createUploadWidget(
   {
-    cloudName: process.env.REACT_APP_CLOUD_NAME,
-    uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
+    cloudName: settings.REACT_APP_CLOUD_NAME,
+    uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
   },	
   (error, { event, info }) => {
     if (event === 'success') {
-      //     fetch('https://api.cloudinary.com/v1_1/${process.env.REACT_APP_API_URL}/bird', {
+      //     fetch('https://api.cloudinary.com/v1_1/${settings.REACT_APP_API_URL}/bird', {
       //       method: 'POST',
       //       }
       //       .then(event => response.json())
