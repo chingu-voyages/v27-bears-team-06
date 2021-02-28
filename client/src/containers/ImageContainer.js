@@ -14,7 +14,7 @@ const ImageContainer = ({ userLocation }) => {
     const sendBirdData = useCallback(
         ({ url, latitude, longitude }) =>
             axios
-                .post(`${settings.REACT_APP_API_URL}/bird`, {
+                .post(`${settings.REACT_APP_API_URL}/bird-mock`, {
                     url,
                     lat: latitude,
                     long: longitude,
@@ -45,7 +45,7 @@ const ImageContainer = ({ userLocation }) => {
                     if (event === 'success') {
                         setFileImage({ imageUrl: info.secure_url, imageAlt: `An image of ${info.original_filename}` });
                         setLoading(true);
-                        const birdData = await sendBirdData({ url: info.secure_url, ...userLocation })
+                        await sendBirdData({ url: info.secure_url, ...userLocation })
                             .then((data) => setBirdInfo({ name: data.name, description: data.description }))
                             .catch((err) => console.log(err.message));
                     }
