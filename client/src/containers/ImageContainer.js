@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from '../components/Image';
 
+
 class ImageContainer extends React.Component{
   
   state = {
@@ -8,32 +9,35 @@ class ImageContainer extends React.Component{
   imageAlt: undefined,
 }
 
-  onInputChange = () => {
+// const [imageUrl, setImageUrl] = useState('');
+// const [imageAlt, setImageAlt] = useState('');
 
-  const { files } = document.querySelector('input[type="file"]')
+//   onInputChange = () => {
+
+//   const { files } = document.querySelector('input[type="file"]')
     
-  const formData = new FormData();
-  formData.append('file', files[0]);
-  formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
+//   const formData = new FormData();
+//   formData.append('file', files[0]);
+//   formData.append('upload_preset', process.env.REACT_APP_UPLOAD_PRESET);
 
-  const response = {
-  method: 'POST',
-  body: formData,
-  };
+//   const response = {
+//   method: 'POST',
+//   body: formData,
+//   };
 
-  return fetch('https://api.cloudinary.com/v1_1/${REACT_APP_CLOUD_NAME}/image/upload', response )
+//   return fetch('https://api.cloudinary.com/v1_1/${REACT_APP_CLOUD_NAME}/image/upload', response )
      
-  .then(res => res.json())
-  .then(res => {
-    // console.log('Image received ', res)
-    this.setState({
-    imageUrl: res.secure_url,
-    imageAlt: `An image of ${res.original_filename}`
-    })
-  })
-  .catch(err => console.log(err));
-}
-//open the widget
+//   .then(res => res.json())
+//   .then(res => {
+//     // console.log('Image received ', res)
+//     this.setState({
+//     imageUrl: res.secure_url,
+//     imageAlt: `An image of ${res.original_filename}`
+//     })
+//   })
+//   .catch(err => console.log(err));
+// }
+
 //open the widget
 openWidget = () => {
   window.cloudinary.createUploadWidget(
@@ -73,7 +77,7 @@ render() {
 
   return (
     <Image 
-       onInputChange= {this.onInputChange}
+      //  onInputChange= {this.onInputChange}
        openWidget = {this.openWidget}
        {...this.state}
     />

@@ -6,7 +6,7 @@ export default function image ({onInputChange,openWidget,imageUrl,imageAlt}) {
       <div>
         <div class="lg:2/6 xl:w-2/4 mt-4 lg:mt-40 lg:ml-16 text-left flex flex-col items-center">
 
-          <button class="mt-2 px-8 py-4 rounded-full ont-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-blue-700 transition duration-200 ease-in-out"
+          <button class="mt-12 px-8 py-4 rounded-l-xl rounded-t-xl ont-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-blue-700 transition duration-200 ease-in-out"
             onClick={openWidget}>
             Upload Image Via Widget
           </button>
@@ -20,15 +20,14 @@ export default function image ({onInputChange,openWidget,imageUrl,imageAlt}) {
          </div>
         </div>
 
-      <div class="p-40">
+      <div class="p-24">
         <div class="w-96 m-auto ">
-             <div class=" grid grid-cols-3 grid-rows-7 grid-flow-row overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+        
                 <div class="col-span-3 row-span-4 p-1 m-1">
                   {imageUrl && (
                     <img src={imageUrl} alt={imageAlt} className="displayed-image"/>
                   )}  
                 </div>
-
                 
               <div class="col-span-3 row-span-1">
                 <div class="flex align-bottom flex-col leading-none p-2 md:p-4">
@@ -50,7 +49,7 @@ export default function image ({onInputChange,openWidget,imageUrl,imageAlt}) {
                 </h1>
               </header>
             </div>
-          </div>
+          
         </div>
       </div>
     </div>
