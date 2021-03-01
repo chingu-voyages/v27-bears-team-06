@@ -1,0 +1,16 @@
+[0m2021.02.22 01:18:09 INFO  Started: Metals version 0.9.10 in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server' for client vscode 1.53.2.[0m
+[0m2021.02.22 01:18:14 INFO  time: initialize in 4.51s[0m
+[0m2021.02.22 01:18:15 WARN  Build server is not auto-connectable.[0m
+[0m2021.02.22 01:18:15 WARN  no build tool detected in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+2¿ù 25, 2021 5:09:15 ¿ÀÈÄ org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+[0m2021.02.25 19:43:45 INFO  Started: Metals version 0.10.0 in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server' for client vscode 1.53.2.[0m
+[0m2021.02.25 19:43:48 INFO  time: initialize in 3.03s[0m
+[0m2021.02.25 19:43:53 WARN  Build server is not auto-connectable.[0m
+[0m2021.02.25 19:43:53 WARN  no build tool detected in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.02.26 01:06:36 INFO  shutting down Metals[0m
+[0m2021.02.26 01:10:27 INFO  Started: Metals version 0.10.0 in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server' for client vscode 1.53.2.[0m
+[0m2021.02.26 01:10:29 INFO  time: initialize in 2.01s[0m
+[0m2021.02.26 01:10:29 WARN  Build server is not auto-connectable.[0m
+[0m2021.02.26 01:10:29 WARN  no build tool detected in workspace 'C:\Users\Jyoo9\Desktop\programming\chingu\v27-bears-team-06\server'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.02.26 01:57:16 INFO  shutting down Metals[0m
