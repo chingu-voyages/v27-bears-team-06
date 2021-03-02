@@ -1,84 +1,61 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useCallback } from 'react';
 import Image from '../components/Image';
-import settings from '../config/settings'
+import settings from '../config/settings';
 
-class ImageContainer extends React.Component{
-  
-  state = {
-  imageUrl: undefined,
-  imageAlt: undefined,
-}
+const ImageContainer = ({ userLocation }) => {
+    const [birdInfo, setBirdInfo] = useState({
+        name: null,
+        description: null,
+    });
+    const [fileImage, setFileImage] = useState({ imageUrl: '', imageAlt: '' });
+    const [loading, setLoading] = useState(false);
 
-  onInputChange = () => {
+    const sendBirdData = useCallback(
+        ({ url, latitude, longitude }) =>
+            axios
+                .post(`${settings.REACT_APP_API_URL}/bird-mock`, {
+                    url,
+                    lat: latitude,
+                    long: longitude,
+                })
+                .then(function (response) {
+                    console.log(response);
+                    setLoading(false);
+                    return response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                }),
+        []
+    );
 
-  const { files } = document.querySelector('input[type="file"]')
-    
-  const formData = new FormData();
-  formData.append('file', files[0]);
-  formData.append('upload_preset', settings.REACT_APP_UPLOAD_PRESET);
+    const openWidget = useCallback(() => {
+        window.cloudinary
+            .createUploadWidget(
+                {
+                    cloudName: settings.REACT_APP_CLOUD_NAME,
+                    uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
+                },
+                async (error, { event, info }) => {
+                    if (error) {
+                        return console.error(error.message);
+                    }
 
-  const response = {
-  method: 'POST',
-  body: formData,
-  };
+                    if (event === 'success') {
+                        setFileImage({ imageUrl: info.secure_url, imageAlt: `An image of ${info.original_filename}` });
+                        setLoading(true);
+                        await sendBirdData({ url: info.secure_url, ...userLocation })
+                            .then((data) => setBirdInfo({ name: data.name, description: data.description }))
+                            .catch((err) => console.log(err.message));
+                    }
+                }
+            )
+            .open();
+    }, [sendBirdData, userLocation]);
 
-  return fetch(`https://api.cloudinary.com/v1_1/${settings.REACT_APP_CLOUD_NAME}/image/upload`, response)
-     
-  .then(res => res.json())
-  .then(res => {
-    // console.log('Image received ', res)
-    this.setState({
-    imageUrl: res.secure_url,
-    imageAlt: `An image of ${res.original_filename}`
-    })
-  })
-  .catch(err => console.log(err));
-}
-//open the widget
-openWidget = () => {
-  window.cloudinary.createUploadWidget(
-  {
-    cloudName: settings.REACT_APP_CLOUD_NAME,
-    uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
-  },	
-  (error, { event, info }) => {
-    if (event === 'success') {
-      //     fetch('https://api.cloudinary.com/v1_1/${settings.REACT_APP_API_URL}/bird', {
-      //       method: 'POST',
-      //       }
-      //       .then(event => response.json())
-      //       .then(imageML => {
-      //         // console.log('Image AI received ', res)
-      //         this.setState({
-      //           Identification: imageML.secure_url,
-      //           confidence:
-      //         })
-      //       })
-      //       .catch(err => console.log(err));
-      //     }
-   
-   }
-
-    if (event === 'success') {
-    this.setState({
-      imageUrl: info.secure_url,
-      imageAlt: `An image of ${info.original_filename}`
-    })
-    }
-  },
-  ).open();
+    // TODO: If loading = true, show loading progress
+    return <Image openWidget={openWidget} loading={loading} birdInfo={birdInfo} {...fileImage} />;
 };
-
-render() {
-
-  return (
-    <Image 
-       onInputChange= {this.onInputChange}
-       openWidget = {this.openWidget}
-       {...this.state}
-    />
-  ) 
- }
-}
 
 export default ImageContainer;

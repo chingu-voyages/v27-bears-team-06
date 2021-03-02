@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://api.cloudinary.com",
+  "proxy": "http://localhost:8080/api",
   "dependencies": {
     "@craco/craco": "^6.1.1",
     "@tailwindcss/postcss7-compat": "^2.0.3",
@@ -28,7 +28,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "server": "\"cd.. && cd server && go run main.go\"",
+    "server": "cd .. && cd server && go run main.go",
     "dev": "concurrently \"npm:start\" \"npm:server\"",
     "test": "craco test",
     "eject": "react-scripts eject"
