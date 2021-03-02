@@ -22,7 +22,6 @@ model = torch.hub.load('nicolalandro/ntsnet-cub200', 'ntsnet', pretrained=True, 
 model.eval()
 
 
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     # xxx.png
