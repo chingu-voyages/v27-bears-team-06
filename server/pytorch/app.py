@@ -22,10 +22,12 @@ model = torch.hub.load('nicolalandro/ntsnet-cub200', 'ntsnet', pretrained=True, 
 model.eval()
 
 
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     # xxx.png
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 
 def get_prediction(img):
@@ -40,11 +42,11 @@ def get_prediction(img):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    url = request.get_json(force=True)
-    url = json.loads(url)['value']
+    print (request.is_json)
+    content = request.get_json()
+    url = content['value']
     print(url)
-    
-    
+
     if request.method == 'POST':
         file = request.files.get('file')
 
@@ -69,5 +71,4 @@ def predict():
         prediction = get_prediction(img=torch_images)
 
         return prediction
-
 
