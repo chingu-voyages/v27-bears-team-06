@@ -8,7 +8,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -83,12 +82,17 @@ func SendBirdImage(c *gin.Context) {
 //checks and prints a message if a website is up or down
 func getPrediction(fileURL string, c chan Prediction) {
 	baseURL := os.Getenv("FLASK_API_BASE_URL")
-	targetURL := baseURL + "/prediect"
+	targetURL := baseURL + "/predict"
 
-	response, err := http.PostForm(targetURL, url.Values{
-		"file_url": {fileURL},
+	// response, err := http.PostForm(targetURL, url.Values{
+	// 	"value": {fileURL},
+	// })
+	postBody, _ := json.Marshal(map[string]string{
+		"value": fileURL,
 	})
+	responseBody := bytes.NewBuffer(postBody)
 
+	response, err := http.Post(targetURL, "application/json", responseBody)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -145,12 +149,12 @@ func SendBird(c *gin.Context) {
 	// var natureServeData Bird
 	c.Bind(&bird)
 
-	c.JSON(http.StatusOK, gin.H{
-		"id":          200,
-		"image_url":   bird.URL,
-		"name":        "Common Yellowthroat",
-		"description": "Exhibits relatively deep mtDNA separations between populations in Washington and those in the central and eastern states (Ball and Avise 1992). Populations around Lake Chapala, Jalisco, regarded as a distinct group, <i>Chapalensis</i> (AOU 1998). Sometimes regarded as conspecific with <i>G. rostrata, G. flavovelata, and G. beldingi</i> (AOU 1983). Further study required of species relationships with <i>Geothlypis</i> (AOU 1998).",
-	})
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"id":          200,
+	// 	"image_url":   bird.URL,
+	// 	"name":        "Common Yellowthroat",
+	// 	"description": "Exhibits relatively deep mtDNA separations between populations in Washington and those in the central and eastern states (Ball and Avise 1992). Populations around Lake Chapala, Jalisco, regarded as a distinct group, <i>Chapalensis</i> (AOU 1998). Sometimes regarded as conspecific with <i>G. rostrata, G. flavovelata, and G. beldingi</i> (AOU 1983). Further study required of species relationships with <i>Geothlypis</i> (AOU 1998).",
+	// })
 
 	predictChan := make(chan Prediction)
 	go getPrediction(bird.URL, predictChan)
