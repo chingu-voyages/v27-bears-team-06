@@ -56,6 +56,7 @@ const ImageContainer = ({ userLocation }) => {
 
     // TODO: If loading = true, show loading progress
     return <Image openWidget={openWidget} loading={loading} birdInfo={birdInfo} {...fileImage} />;
+    
 };
 
 export default ImageContainer;
