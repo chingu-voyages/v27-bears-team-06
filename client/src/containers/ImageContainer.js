@@ -14,7 +14,7 @@ const ImageContainer = ({ userLocation }) => {
     const sendBirdData = useCallback(
         ({ url, latitude, longitude }) =>
             axios
-                .post(`${settings.REACT_APP_API_URL}/bird-mock`, {
+                .post(`${settings.REACT_APP_API_URL}/bird`, {
                     url,
                     lat: latitude,
                     long: longitude,
