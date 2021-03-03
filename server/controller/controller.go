@@ -4,11 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -20,22 +17,41 @@ type Bird struct {
 	// ID          int
 	// Name        string
 	// Description string
-	URL         string `form:"url"`
-	Lat         int    `form:"lat"`
-	Lng         int    `form:"lng"`
-	MockRequest bool   `form:"mockRequest"`
+	URL string `form:"url"`
+	Lat int    `form:"lat"`
+	Lng int    `form:"lng"`
 }
 
 //Prediction response from api
 type Prediction struct {
-	id   int
-	name string
+	ID   int
+	Name string
 }
 
 // NatureServeParams for API POST request
 type NatureServeParams struct {
 	CriteriaType string         `json:"criteriaType"`
 	TextCriteria []TextCriteria `json:"textCriteria"`
+}
+
+type SpeciesGlobal struct {
+	Synonyms          []string `json:"synonyms"`
+	OtherCommonNames  []string `json:"otherCommonNames"`
+	Kingdom           string   `json:"kingdom"`
+	Phylum            string   `json:"phylum"`
+	TaxClass          string   `json:"taxclass"`
+	TaxOrder          string   `json:"taxorder"`
+	Family            string   `json:"family"`
+	Genus             string   `json:"genus"`
+	TaxonomicComments string   `json:"taxonomicComments"`
+	InformalTaxonomy  string   `json:"informalTaxonomy"`
+}
+type Result struct {
+	SpeciesGlobal SpeciesGlobal `json:"speciesGlobal"`
+}
+
+type NatureServeAPIResponse struct {
+	Results []Result `json:"results"`
 }
 
 // TextCriteria params for API POST request
@@ -80,93 +96,86 @@ func SendBirdImage(c *gin.Context) {
 	})
 }
 
-//checks and prints a message if a website is up or down
+//send image and get prediction from Pytorch API server
 func getPrediction(fileURL string, c chan Prediction) {
+	var data Prediction
 	baseURL := os.Getenv("FLASK_API_BASE_URL")
-	targetURL := baseURL + "/prediect"
+	targetURL := baseURL + "/predict"
 
-	response, err := http.PostForm(targetURL, url.Values{
-		"file_url": {fileURL},
+	postBody, _ := json.Marshal(map[string]string{
+		"value": fileURL,
 	})
 
+	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
 	if err != nil {
-		log.Fatalln(err)
+		panic(err.Error())
 	}
-
 	defer response.Body.Close()
-	body, err := ioutil.ReadAll(response.Body)
 
-	if err != nil {
-		log.Fatalln(err)
-	}
+	err = json.NewDecoder(response.Body).Decode(&data)
 
-	fmt.Printf("%s\n", string(body))
-	// c <- Prediction{body.id, body.name}
-
+	c <- data
 }
 
-//checks and prints a message if a website is up or down
-func getBirdDescription(name string, c chan Bird) {
+// send bird name and get bird details from NatureServe api
+func getBirdDetails(name string, c chan NatureServeAPIResponse) {
+	var data NatureServeAPIResponse
 	targetURL := "https://explorer.natureserve.org/api/data/speciesSearch"
 
-	body := &NatureServeParams{
+	// textCriteriaQuery := TextCriteria{
+	// 	ParamType:    "textSearch",
+	// 	SearchToken:  name,
+	// 	MatchAgainst: "allNames",
+	// 	Operator:     "equals",
+	// }
+
+	requestQuery := NatureServeParams{
 		CriteriaType: "species",
-		TextCriteria: []TextCriteria{
-			{
-				ParamType:    "textSearch",
-				SearchToken:  name,
-				MatchAgainst: "allNames",
-				Operator:     "equals",
-			},
-		},
+		TextCriteria: []TextCriteria{{
+			ParamType:    "textSearch",
+			SearchToken:  name,
+			MatchAgainst: "allNames",
+			Operator:     "equals",
+		}},
 	}
 
-	payloadBuf := new(bytes.Buffer)
-	json.NewEncoder(payloadBuf).Encode(body)
-	req, _ := http.NewRequest("POST", targetURL, payloadBuf)
-
-	client := &http.Client{}
-	res, err := client.Do(req)
+	var postBody []byte
+	postBody, err := json.Marshal(requestQuery)
+	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
 	if err != nil {
-		log.Fatalln(err)
+		panic(err.Error())
 	}
+	defer response.Body.Close()
 
-	defer res.Body.Close()
+	err = json.NewDecoder(response.Body).Decode(&data)
+	fmt.Println("data:", data.Results[0].SpeciesGlobal)
 
-	fmt.Println("response Status:", res.Status)
-	// Print the body to the stdout
-	io.Copy(os.Stdout, res.Body)
+	c <- data
 }
 
 // SendBird receives url to send to Flask API
 func SendBird(c *gin.Context) {
 	var bird Bird
 	var prediction Prediction
-	// var natureServeData Bird
+	var natureServeData NatureServeAPIResponse
 	c.Bind(&bird)
-
-	c.JSON(http.StatusOK, gin.H{
-		"id":          200,
-		"image_url":   bird.URL,
-		"name":        "Common Yellowthroat",
-		"description": "Exhibits relatively deep mtDNA separations between populations in Washington and those in the central and eastern states (Ball and Avise 1992). Populations around Lake Chapala, Jalisco, regarded as a distinct group, <i>Chapalensis</i> (AOU 1998). Sometimes regarded as conspecific with <i>G. rostrata, G. flavovelata, and G. beldingi</i> (AOU 1983). Further study required of species relationships with <i>Geothlypis</i> (AOU 1998).",
-	})
 
 	predictChan := make(chan Prediction)
 	go getPrediction(bird.URL, predictChan)
 
 	prediction = <-predictChan
+	// fmt.Println("predictChan:", prediction)
 
-	// natureServeChan := make(chan Bird)
-	// go getBirdDescription("Common Yellowthroat", natureServeChan)
+	natureServeChan := make(chan NatureServeAPIResponse)
+	go getBirdDetails(prediction.Name, natureServeChan)
 
-	// natureServeData = <-natureServeChan
+	natureServeData = <-natureServeChan
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":        prediction.id,
-		"image_url": bird.URL,
-		"name":      prediction.name,
-		// "description": natureServeData,
+		"id":           prediction.ID,
+		"image_url":    bird.URL,
+		"name":         prediction.Name,
+		"species_info": natureServeData.Results[0].SpeciesGlobal,
 	})
 
 }
