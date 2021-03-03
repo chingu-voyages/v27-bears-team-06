@@ -10,48 +10,68 @@ const WidgetButton = ({ openWidget }) => (
     </button>
 );
 
-export default function Image({ openWidget, imageUrl, imageAlt, loading, birdInfo }) {
+
+
+export default function Image({ openWidget, imageUrl, imageAlt, loading, birdDetails }) {
+    const { name, species_info: speciesInfo } = birdDetails;
+    const {
+        // synonyms,
+        // otherCommonNames,
+        // kingdom,
+        // phylum,
+        // taxclass,
+        // taxorder,
+        // family,
+        // genus,
+        // informalTaxonomy,
+        taxonomicComments: description,
+        ...otherInfo
+    } = speciesInfo;
+   
     return (
         <div>
             <div className="lg:2/6 xl:w-2/4 mt-4 lg:mt-40 lg:ml-16 text-left flex flex-col items-center">
-                {loading ? <Loading loading={loading}/> : <WidgetButton openWidget={openWidget} />}
+                {loading ? <Loading loading={loading} /> : <WidgetButton openWidget={openWidget} />}
                 <div className="mt-12 lg:mt-32 lg:ml-20 text-left flex flex-col items-center">
                     <button
                         type="button"
-                        className="flex items-center justify-center  w-12 h-12 rounded-full animate-bounce text-green-400 transition duration-300 ease-in-out cursor-pointer">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                        className="flex items-center justify-center  w-12 h-12 rounded-full animate-bounce text-green-400 transition duration-300 ease-in-out cursor-pointer"
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                            ></path>
                         </svg>
                     </button>
                 </div>
             </div>
 
             <div className="bg-gradient-to-r from-green-400 to-blue-500 py-20 px-20">
-     
-     <div className=" blog-wraper flex justify-between items-center">
-
-  <div className="blog bg-white mr-5">
-  {imageUrl && <img src={imageUrl} alt={imageAlt} />}  
-      {/* <div class="p-5">
-     <h1 class="text-2xl font-bold text-green-800 py-2">Bird Name</h1>
-      <p class="bg-white text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis vitae qui distinctio ex soluta? Voluptates, ea! Esse, natus. Quas possimus laboriosam consectetur deserunt ea sapiente. Dicta ipsam atque voluptatem provident!</p>
-      <a href="" class="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded">Read More</a>
-      </div> */}
-  </div>
-
-
-  <div className="blog bg-white mr-5">
-  {imageUrl && <img src={imageUrl} alt={imageAlt} />}
-     <div className="p-5">
-         <h1 className="text-2xl font-bold text-green-800 py-2">Lorem ipsum dolor sit amet</h1>
-     <p className="bg-white text-sm text-black">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis vitae qui distinctio ex soluta? Voluptates, ea! Esse, natus. Quas possimus laboriosam consectetur deserunt ea sapiente. Dicta ipsam atque voluptatem provident!</p>
-     <a href="" className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded">Read More</a>
-     </div>
- </div>
- 
- </div>
- </div>
-</div>
+                <div className=" blog-wraper flex justify-between items-center">
+                    <div className="blog bg-white mr-5">{imageUrl && <img src={imageUrl} alt={imageAlt} />}</div>
+                    <div className="blog bg-white mr-5">
+                        {imageUrl && <img src={imageUrl} alt={imageAlt} />}
+                        <div className="p-5">
+                            <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
+                            <p className="bg-white text-sm text-black">{description}</p>
+                            <p className="bg-white text-sm text-black">Other Info:{JSON.stringify(otherInfo)}</p>
+                            <a href="" className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 
