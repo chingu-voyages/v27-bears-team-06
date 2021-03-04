@@ -3,7 +3,6 @@ import Logo from './Logo/logo.png';
 
 
 export default function Header(props){
-
     return (
     <div className="min-h-screen min-w-full bg-gray-100 flex flex-col md:justify-center p-10 s:flex">
       <div className="relative w-full max-w-full lg:max-w-6xl xl:max-w-screen-2xl mx-auto s:flex md:flex">
@@ -32,18 +31,3 @@ export default function Header(props){
            
     );
 }
-
-{/* <header className="bg-gradient-to-r from-green-400 to-blue-500 p-10 m:flex md:flex">
-            
-<div className="md:flex sm:flex justify-center py-16  ">
-   <div className="mb-10 lg:mb-20">
-       <img className="sm:flex md:flex mx-auto w-24" src={Logo} alt="logo" />
-    </div>
-    <div className="p-2 my-auto ">
-        <div className=" sm:flex md:flex text-black text-4xl text-center my-8">
-           <div className=" mt-8 text-5xl leading-none"> Recognize our feathered friends </div>
-        </div>
-       <p className=" sm:flex md:flex my-4 text-blue-600 font-bold text-3xl text-center"> What’s that bird? </p>
-    </div>
-</div>
-</header>    */}
