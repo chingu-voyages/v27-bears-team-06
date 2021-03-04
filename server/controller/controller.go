@@ -12,56 +12,6 @@ import (
 	"github.com/komfy/cloudinary"
 )
 
-//Bird request from form data
-type Bird struct {
-	// ID          int
-	// Name        string
-	// Description string
-	URL string `form:"url"`
-	Lat int    `form:"lat"`
-	Lng int    `form:"lng"`
-}
-
-//Prediction response from api
-type Prediction struct {
-	ID   int
-	Name string
-}
-
-// NatureServeParams for API POST request
-type NatureServeParams struct {
-	CriteriaType string         `json:"criteriaType"`
-	TextCriteria []TextCriteria `json:"textCriteria"`
-}
-
-type SpeciesGlobal struct {
-	Synonyms          []string `json:"synonyms"`
-	OtherCommonNames  []string `json:"otherCommonNames"`
-	Kingdom           string   `json:"kingdom"`
-	Phylum            string   `json:"phylum"`
-	TaxClass          string   `json:"taxclass"`
-	TaxOrder          string   `json:"taxorder"`
-	Family            string   `json:"family"`
-	Genus             string   `json:"genus"`
-	TaxonomicComments string   `json:"taxonomicComments"`
-	InformalTaxonomy  string   `json:"informalTaxonomy"`
-}
-type Result struct {
-	SpeciesGlobal SpeciesGlobal `json:"speciesGlobal"`
-}
-
-type NatureServeAPIResponse struct {
-	Results []Result `json:"results"`
-}
-
-// TextCriteria params for API POST request
-type TextCriteria struct {
-	ParamType    string `json:"paramType"`
-	SearchToken  string `json:"searchToken"`
-	MatchAgainst string `json:"matchAgainst"`
-	Operator     string `json:"operator"`
-}
-
 // Pong tests that api is working
 func Pong(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"ping": "pong"})
@@ -121,13 +71,6 @@ func getPrediction(fileURL string, c chan Prediction) {
 func getBirdDetails(name string, c chan NatureServeAPIResponse) {
 	var data NatureServeAPIResponse
 	targetURL := "https://explorer.natureserve.org/api/data/speciesSearch"
-
-	// textCriteriaQuery := TextCriteria{
-	// 	ParamType:    "textSearch",
-	// 	SearchToken:  name,
-	// 	MatchAgainst: "allNames",
-	// 	Operator:     "equals",
-	// }
 
 	requestQuery := NatureServeParams{
 		CriteriaType: "species",
