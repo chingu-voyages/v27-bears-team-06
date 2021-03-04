@@ -55,7 +55,7 @@ const ImageContainer = ({ userLocation }) => {
     }, [sendBirdData, userLocation]);
 
     // TODO: If loading = true, show loading progress
-    return <Image openWidget={openWidget} loading={loading} birdInfo={birdInfo} {...fileImage} />;
+    return <Image openWidget={openWidget} loading={loading} birdInfo={birdInfo} {...fileImage}  />;
     
 };
 
