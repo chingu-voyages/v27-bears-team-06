@@ -4,8 +4,8 @@ import Logo from './Logo/logo.png';
 
 export default function Header(props){
     return (
-    <div className="min-h-screen min-w-full bg-gray-100 flex flex-col md:justify-center p-10 s:flex">
-      <div className="relative w-full max-w-full lg:max-w-6xl xl:max-w-screen-2xl mx-auto s:flex md:flex">
+    <div className="min-h-screen sm:max-w-xs min-w-full bg-gray-100 flex flex-col md:justify-center p-10 sm:flex">
+      <div className="relative w-full max-w-full  sm:max-w-xs lg:max-w-6xl xl:max-w-screen-2xl mx-auto s:flex md:flex">
         <div className="absolute inset-0 -mr-3.5 bg-gradient-to-r from-green-400 to-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:rotate-3 sm:rounded-3xl"></div>
          <div className="relative bg-white shadow-lg sm:rounded-3xl">
         
