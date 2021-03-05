@@ -5,4 +5,4 @@ torchvision==0.8.2+cpu
 Flask
 numpy
 Pillow
-gunicorn==19.7.1
+gunicorn
