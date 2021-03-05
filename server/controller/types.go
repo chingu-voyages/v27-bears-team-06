@@ -2,9 +2,16 @@ package controller
 
 //Bird request from form data
 type Bird struct {
-	URL string `form:"url"`
-	Lat int    `form:"lat"`
-	Lng int    `form:"lng"`
+	URL string  `form:"url"`
+	Lat float32 `form:"lat"`
+	Lng float32 `form:"lng"`
+}
+
+//SendBirdPayload response to send client
+type SendBirdPayload struct {
+	ID          int           `json:"id"`
+	Name        string        `json:"name"`
+	SpeciesInfo SpeciesGlobal `json:"species_info,omitempty"`
 }
 
 //Prediction response from api
@@ -21,16 +28,16 @@ type NatureServeParams struct {
 
 // SpeciesGlobal contains info relating to bird result
 type SpeciesGlobal struct {
-	Synonyms          []string `json:"synonyms"`
-	OtherCommonNames  []string `json:"otherCommonNames"`
-	Kingdom           string   `json:"kingdom"`
-	Phylum            string   `json:"phylum"`
-	TaxClass          string   `json:"taxclass"`
-	TaxOrder          string   `json:"taxorder"`
-	Family            string   `json:"family"`
-	Genus             string   `json:"genus"`
-	TaxonomicComments string   `json:"taxonomicComments"`
-	InformalTaxonomy  string   `json:"informalTaxonomy"`
+	Synonyms          []string `json:"synonyms,omitempty"`
+	OtherCommonNames  []string `json:"otherCommonNames,omitempty"`
+	Kingdom           string   `json:"kingdom,omitempty"`
+	Phylum            string   `json:"phylum,omitempty"`
+	TaxClass          string   `json:"taxclass,omitempty"`
+	TaxOrder          string   `json:"taxorder,omitempty"`
+	Family            string   `json:"family,omitempty"`
+	Genus             string   `json:"genus,omitempty"`
+	TaxonomicComments string   `json:"taxonomicComments,omitempty"`
+	InformalTaxonomy  string   `json:"informalTaxonomy,omitempty"`
 }
 
 // Result from each entry in API response
