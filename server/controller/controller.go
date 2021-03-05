@@ -1,9 +1,6 @@
 package controller
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -25,75 +22,25 @@ func SendBirdImage(c *gin.Context) {
 	}
 	cloudService, err := cloudinary.NewService(cloudinaryURL)
 	if err != nil {
-		log.Fatalln(err)
+		HandleErr(c, err)
 	}
 
 	fileHeader, _ := c.FormFile("file")
 
 	file, err := fileHeader.Open()
 	if err != nil {
-		log.Fatalln(err)
+		HandleErr(c, err)
 	}
 
 	uploadResponse, err := cloudService.Upload(fileHeader.Filename, file, false)
 	if err != nil {
-		log.Fatalln(err)
+		HandleErr(c, err)
 	}
 
 	c.JSON(http.StatusOK, gin.H{
 		"file":                  fileHeader.Filename,
 		"cloudinary_upload_url": uploadResponse.URL,
 	})
-}
-
-//send image and get prediction from Pytorch API server
-func getPrediction(fileURL string, c chan Prediction) {
-	var data Prediction
-	baseURL := os.Getenv("FLASK_API_BASE_URL")
-	targetURL := baseURL + "/predict"
-
-	postBody, _ := json.Marshal(map[string]string{
-		"value": fileURL,
-	})
-
-	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
-	if err != nil {
-		panic(err.Error())
-	}
-	defer response.Body.Close()
-
-	err = json.NewDecoder(response.Body).Decode(&data)
-
-	c <- data
-}
-
-// send bird name and get bird details from NatureServe api
-func getBirdDetails(name string, c chan NatureServeAPIResponse) {
-	var data NatureServeAPIResponse
-	targetURL := "https://explorer.natureserve.org/api/data/speciesSearch"
-
-	requestQuery := NatureServeParams{
-		CriteriaType: "species",
-		TextCriteria: []TextCriteria{{
-			ParamType:    "textSearch",
-			SearchToken:  name,
-			MatchAgainst: "allNames",
-			Operator:     "equals",
-		}},
-	}
-
-	var postBody []byte
-	postBody, err := json.Marshal(requestQuery)
-	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
-	if err != nil {
-		panic(err.Error())
-	}
-	defer response.Body.Close()
-
-	err = json.NewDecoder(response.Body).Decode(&data)
-	fmt.Println("data:", data.Results[0].SpeciesGlobal)
-
-	c <- data
 }
 
 // SendBird receives url to send to Flask API
@@ -104,21 +51,47 @@ func SendBird(c *gin.Context) {
 	c.Bind(&bird)
 
 	predictChan := make(chan Prediction)
-	go getPrediction(bird.URL, predictChan)
+
+	go func() {
+		err := getPrediction(bird.URL, predictChan)
+		if err != nil {
+			HandleErr(c, err)
+			c.JSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve prediction"})
+		}
+	}()
 
 	prediction = <-predictChan
-	// fmt.Println("predictChan:", prediction)
 
 	natureServeChan := make(chan NatureServeAPIResponse)
-	go getBirdDetails(prediction.Name, natureServeChan)
+
+	go func() {
+		err := getBirdDetails(prediction.Name, natureServeChan)
+		if err != nil {
+			HandleErr(c, err)
+			c.JSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve bird details"})
+		}
+	}()
 
 	natureServeData = <-natureServeChan
+	var payload SendBirdPayload
+
+	if len(natureServeData.Results) == 0 {
+		payload = SendBirdPayload{
+			ID:   prediction.ID,
+			Name: prediction.Name,
+		}
+	} else {
+		payload = SendBirdPayload{
+			ID:          prediction.ID,
+			Name:        prediction.Name,
+			SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
+		}
+	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":           prediction.ID,
-		"image_url":    bird.URL,
-		"name":         prediction.Name,
-		"species_info": natureServeData.Results[0].SpeciesGlobal,
+		"success": true,
+		"msg":     "prediction found",
+		"data":    payload,
 	})
 
 }
