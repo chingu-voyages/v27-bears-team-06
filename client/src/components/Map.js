@@ -4,7 +4,7 @@ import axios from 'axios';
 import useBreakpoints from '../utils/useBreakpoints';
 import settings from '../config/settings';
 
-const PopupCard = ({ comName, howMany, lat, lng, locName, locationPrivate, sciName, speciesCode }) => {
+const PopupCard = ({ comName, lat, lng, locName, sciName }) => {
     return (
         <div className="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
             <div className="m-3">
