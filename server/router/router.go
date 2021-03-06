@@ -25,6 +25,7 @@ func SetupRouter() *gin.Engine {
 
 	// routes
 	api.GET("/ping", controller.Pong)
+	api.GET("/location", controller.GetLocation)
 	api.POST("/bird", controller.SendBird)
 	api.POST("/bird-mock", controller.MockSendBird)
 	// api.POST("/bird-image", controller.SendBirdImage)

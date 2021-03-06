@@ -50,6 +50,18 @@ type NatureServeAPIResponse struct {
 	Results []Result `json:"results"`
 }
 
+// Location contains info relating to nearby bird observations
+type Location struct {
+	SpeciesCode     string  `json:"speciesCode"`
+	ComName         string  `json:"comName"`
+	SciName         string  `json:"sciName"`
+	LocName         string  `json:"locName"`
+	HowMany         int     `json:"howMany"`
+	Lat             float32 `json:"lat"`
+	Lng             float32 `json:"lng"`
+	LocationPrivate bool    `json:"locationPrivate"`
+}
+
 // TextCriteria params for API POST request
 type TextCriteria struct {
 	ParamType    string `json:"paramType"`
