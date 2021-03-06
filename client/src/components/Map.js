@@ -96,7 +96,7 @@ const Map = ({ predictBird = '' }) => {
                 width="100vw"
                 height="calc(100vh - 64px)"
                 mapStyle="mapbox://styles/mapbox/streets-v9"
-                mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_TOKEN}
+                mapboxApiAccessToken={settings.REACT_APP_MAPBOX_API_TOKEN}
                 scrollZoom={!mobileSize}
                 onViewportChange={(newViewport) => setViewport(newViewport)}
                 onClick={() => setPopup(null)}
