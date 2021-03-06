@@ -28,13 +28,9 @@ const ImageContainer = ({ userLocation }) => {
     const [loading, setLoading] = useState(false);
 
     const sendBirdData = useCallback(
-        ({ url, latitude, longitude }) =>
+        (url) =>
             axios
-                .post(`${settings.REACT_APP_API_URL}/bird`, {
-                    url,
-                    lat: latitude,
-                    long: longitude,
-                })
+                .get(`${settings.REACT_APP_API_URL}/bird`, { params: { image_url: url } })
                 .then(response => {
                     setLoading(false);
                     setBirdDetails(response.data)
@@ -61,13 +57,13 @@ const ImageContainer = ({ userLocation }) => {
                     if (event === 'success') {
                         setFileImage({ imageUrl: info.secure_url, imageAlt: `An image of ${info.original_filename}` });
                         setLoading(true);
-                        await sendBirdData({ url: info.secure_url, ...userLocation })
+                        await sendBirdData(info.secure_url)
  
                     }
                 }
             )
             .open();
-    }, [sendBirdData, userLocation]);
+    }, [sendBirdData]);
 
     return <Image openWidget={openWidget} loading={loading} birdDetails={birdDetails} {...fileImage} />;
     
