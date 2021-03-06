@@ -22,7 +22,7 @@ const mockedBirdData = {
     },
 };
 
-const ImageContainer = ({ userLocation }) => {
+const ImageContainer = () => {
     const [birdDetails, setBirdDetails] = useState(mockedBirdData);
     const [fileImage, setFileImage] = useState({ imageUrl: '', imageAlt: '' });
     const [loading, setLoading] = useState(false);
