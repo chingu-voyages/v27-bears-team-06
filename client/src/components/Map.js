@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import mapboxgl from "mapbox-gl";
 import ReactMapGL, { NavigationControl, Marker, Popup } from 'react-map-gl';
 import axios from 'axios';
 import useBreakpoints from '../utils/useBreakpoints';
 import settings from '../config/settings';
 // @ts-ignore
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
-ReactMapGL.workerClass = MapboxWorker.default;
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const PopupCard = ({ comName, lat, lng, locName, sciName }) => {
     return (
