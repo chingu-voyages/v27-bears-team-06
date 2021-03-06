@@ -24,10 +24,8 @@ func SetupRouter() *gin.Engine {
 	router.Use(middlewares.CORSMiddleware())
 
 	// routes
-	api.GET("/ping", controller.Pong)
-	api.POST("/bird", controller.SendBird)
-	api.POST("/bird-mock", controller.MockSendBird)
-	// api.POST("/bird-image", controller.SendBirdImage)
+	api.GET("/location", controller.GetLocation)
+	api.GET("/bird", controller.GetBird)
 
 	return router
 }
