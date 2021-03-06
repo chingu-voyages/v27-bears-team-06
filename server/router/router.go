@@ -25,7 +25,7 @@ func SetupRouter() *gin.Engine {
 
 	// routes
 	api.GET("/location", controller.GetLocation)
-	api.POST("/bird", controller.SendBird)
+	api.GET("/bird", controller.GetBird)
 
 	return router
 }

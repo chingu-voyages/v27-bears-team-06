@@ -9,20 +9,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// SendBird receives url to send to Flask API
-func SendBird(c *gin.Context) {
-	var bird Bird
+// GetBird receives url to send to Flask API
+func GetBird(c *gin.Context) {
+	url := c.Query("image_url")
 	var prediction Prediction
 	var natureServeData NatureServeAPIResponse
-	c.Bind(&bird)
+	var response GetBirdResponse
 
 	predictChan := make(chan Prediction)
 
 	go func() {
-		err := getPrediction(bird.URL, predictChan)
+		err := getPrediction(url, predictChan)
 		if err != nil {
 			HandleErr(c, err)
-			c.JSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve prediction"})
+			data := gin.H{"success": false, "errors": "Could not retrieve prediction"}
+			response = GetBirdResponse{http.StatusNotFound, data}
+			return
 		}
 	}()
 
@@ -34,32 +36,32 @@ func SendBird(c *gin.Context) {
 		err := getBirdDetails(prediction.Name, natureServeChan)
 		if err != nil {
 			HandleErr(c, err)
-			c.JSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve bird details"})
+			data := gin.H{"success": false, "errors": "Could not retrieve bird details"}
+			response = GetBirdResponse{http.StatusNotFound, data}
+			return
 		}
 	}()
 
 	natureServeData = <-natureServeChan
 	var payload SendBirdPayload
 
-	if len(natureServeData.Results) == 0 {
-		payload = SendBirdPayload{
-			ID:   prediction.ID,
-			Name: prediction.Name,
-		}
-	} else {
+	if len(natureServeData.Results) != 0 {
 		payload = SendBirdPayload{
 			ID:          prediction.ID,
 			Name:        prediction.Name,
 			SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
 		}
+
+		data := gin.H{
+			"success": true,
+			"msg":     "prediction found",
+			"data":    payload,
+		}
+
+		response = GetBirdResponse{http.StatusOK, data}
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"success": true,
-		"msg":     "prediction found",
-		"data":    payload,
-	})
-
+	c.JSON(response.status, response.data)
 }
 
 // GetLocation receives lat,lng to send to eBird API

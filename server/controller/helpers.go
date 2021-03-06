@@ -57,7 +57,7 @@ func getQuery(name string) NatureServeParams {
 // send bird name and get bird details from NatureServe api
 func getBirdDetails(name string, c chan NatureServeAPIResponse) error {
 	var data NatureServeAPIResponse
-	targetURL := "https://explorer.natureserve.org/api/data/speciesSearchfafa"
+	targetURL := "https://explorer.natureserve.org/api/data/speciesSearch"
 
 	requestQuery := getQuery(name)
 

@@ -1,10 +1,11 @@
 package controller
 
-//Bird request from form data
-type Bird struct {
-	URL string  `form:"url"`
-	Lat float32 `form:"lat"`
-	Lng float32 `form:"lng"`
+import "github.com/gin-gonic/gin"
+
+// GetBirdResponse is return for GetBird
+type GetBirdResponse struct {
+	status int
+	data   gin.H
 }
 
 //SendBirdPayload response to send client
