@@ -14,7 +14,6 @@ func GetBird(c *gin.Context) {
 	url := c.Query("image_url")
 	var prediction Prediction
 	var natureServeData NatureServeAPIResponse
-	var response GetBirdResponse
 
 	predictChan := make(chan Prediction)
 
@@ -22,8 +21,7 @@ func GetBird(c *gin.Context) {
 		err := getPrediction(url, predictChan)
 		if err != nil {
 			HandleErr(c, err)
-			data := gin.H{"success": false, "errors": "Could not retrieve prediction"}
-			response = GetBirdResponse{http.StatusNotFound, data}
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve prediction"})
 			return
 		}
 	}()
@@ -36,8 +34,7 @@ func GetBird(c *gin.Context) {
 		err := getBirdDetails(prediction.Name, natureServeChan)
 		if err != nil {
 			HandleErr(c, err)
-			data := gin.H{"success": false, "errors": "Could not retrieve bird details"}
-			response = GetBirdResponse{http.StatusNotFound, data}
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"success": false, "errors": "Could not retrieve bird details"})
 			return
 		}
 	}()
@@ -45,23 +42,20 @@ func GetBird(c *gin.Context) {
 	natureServeData = <-natureServeChan
 	var payload SendBirdPayload
 
-	if len(natureServeData.Results) != 0 {
-		payload = SendBirdPayload{
-			ID:          prediction.ID,
-			Name:        prediction.Name,
-			SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
-		}
-
-		data := gin.H{
-			"success": true,
-			"msg":     "prediction found",
-			"data":    payload,
-		}
-
-		response = GetBirdResponse{http.StatusOK, data}
+	payload = SendBirdPayload{
+		ID:          prediction.ID,
+		Name:        prediction.Name,
+		SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
 	}
 
-	c.JSON(response.status, response.data)
+	data := gin.H{
+		"success": true,
+		"msg":     "prediction found",
+		"data":    payload,
+	}
+
+	c.JSON(http.StatusOK, data)
+
 }
 
 // GetLocation receives lat,lng to send to eBird API

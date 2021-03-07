@@ -3,6 +3,7 @@ package controller
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"net/http"
 	"os"
 
@@ -32,6 +33,7 @@ func getPrediction(fileURL string, c chan Prediction) error {
 
 	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
 	if err != nil {
+		close(c)
 		return err
 	}
 	defer response.Body.Close()
@@ -39,7 +41,7 @@ func getPrediction(fileURL string, c chan Prediction) error {
 	err = json.NewDecoder(response.Body).Decode(&data)
 
 	c <- data
-	return err
+	return nil
 }
 
 func getQuery(name string) NatureServeParams {
@@ -65,15 +67,17 @@ func getBirdDetails(name string, c chan NatureServeAPIResponse) error {
 	postBody, err := json.Marshal(requestQuery)
 	response, err := http.Post(targetURL, "application/json", bytes.NewBuffer(postBody))
 	if err != nil {
+		close(c)
 		return err
 	} else if response.StatusCode == 404 {
-		// err := errors.New("Data not found")
-		// return err
+		close(c)
+		err := errors.New("Data not found")
+		return err
 	}
 	defer response.Body.Close()
 
 	err = json.NewDecoder(response.Body).Decode(&data)
 
 	c <- data
-	return err
+	return nil
 }
