@@ -55,7 +55,7 @@ const Bird = () => {
     return (
         <Fragment>
             <Widget onSuccess={onSuccess} loading={loading} />
-            <BirdCard loading={loading} birdDetails={birdDetails} {...fileImage} />
+            <BirdCard loading={loading} record={birdDetails} {...fileImage} />
         </Fragment>
     );
 };
