@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import About from './components/About';
-import Map from './components/Map';
-// import Card from './components/Card';
-import ImageContainer from './containers/ImageContainer';
+import React from 'react';
+import Header from 'components/Header';
+import About from 'components/About';
+import Map from 'components/Map';
+import Bird from 'components/Bird';
 import './App.css';
 
 function App() {
@@ -11,7 +10,7 @@ function App() {
         <>
             <Header />
             <About />
-            <ImageContainer />
+            <Bird />
             <Map />
         </>
     );
