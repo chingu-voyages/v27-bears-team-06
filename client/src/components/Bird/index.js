@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, Fragment } from 'react';
 import BirdCard from './BirdCard';
-import WidgetButton from './WidgetButton';
+import Widget from './Widget';
 import axios from 'axios';
 import settings from 'config/settings';
 
@@ -43,6 +43,7 @@ const Bird = () => {
                     return response.data;
                 })
                 .catch((error) => {
+                    setLoading(false);
                     console.log(error);
                 });
 
@@ -53,7 +54,7 @@ const Bird = () => {
 
     return (
         <Fragment>
-            <WidgetButton onSuccess={onSuccess} loading={loading} />
+            <Widget onSuccess={onSuccess} loading={loading} />
             <BirdCard loading={loading} birdDetails={birdDetails} {...fileImage} />
         </Fragment>
     );

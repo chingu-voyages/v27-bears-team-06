@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Progress from './Progress';
 import settings from 'config/settings';
 
-function WidgetButton({ onSuccess, loading }) {
+function Widget({ onSuccess, loading }) {
     const handleUpload = useCallback(
         (error, { event, info }) => {
             if (error) {
@@ -11,29 +11,29 @@ function WidgetButton({ onSuccess, loading }) {
 
             if (event === 'success') {
                 onSuccess(info);
-                // closeWidget();
             }
         },
         [onSuccess]
     );
 
-    const widget = useCallback(() => {
-        window.cloudinary.createUploadWidget(
-            {
-                cloudName: settings.REACT_APP_CLOUD_NAME,
-                uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
-            },
-            handleUpload
-        );
-    }, [handleUpload]);
+    const widget = useMemo(
+        () =>
+            window.cloudinary.createUploadWidget(
+                {
+                    cloudName: settings.REACT_APP_CLOUD_NAME,
+                    uploadPreset: settings.REACT_APP_UPLOAD_PRESET,
+                },
+                handleUpload
+            ),
+        [handleUpload]
+    );
 
-    // useEffect(() => {
-    //     if (!loading) {
-    //         widget.hide();
-    //     }
-    // }, [widget]);
+    useEffect(() => {
+        if (!loading) {
+            widget.hide();
+        }
+    }, [loading, widget]);
 
-    const closeWidget = useCallback(() => widget.hide(), [widget]);
     const openWidget = useCallback(() => widget.open(), [widget]);
 
     if (loading) {
@@ -50,4 +50,4 @@ function WidgetButton({ onSuccess, loading }) {
     );
 }
 
-export default WidgetButton;
+export default Widget;
