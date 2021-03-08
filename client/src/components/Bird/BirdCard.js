@@ -49,7 +49,7 @@ export default function BirdCard({ imageUrl, imageAlt, loading, record }) {
         <Card>
             {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
             <CardContent>
-                {record || loading ? (
+                {!record || loading ? (
                     <div>
                         <Progress />
                         Loading...
