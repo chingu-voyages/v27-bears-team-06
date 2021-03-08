@@ -33,6 +33,7 @@ function Widget({ onSuccess }) {
     useEffect(() => {
         if (triggerClose) {
             widget.hide();
+            setTriggerClose(false);
         }
     }, [triggerClose, widget]);
 
