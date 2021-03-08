@@ -11,61 +11,61 @@ const SpecialInfoTable = ({
     genus,
     informalTaxonomy,
 }) => (
-    <table class="table-auto">
+    <table class="table-auto shadow-lg mt-4">
         <tbody>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Synonyms</strong>
                 </td>
-                <td>{synonyms}</td>
+                <td class="border px-8 py-4">{synonyms}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Other Common Names</strong>
                 </td>
-                <td>{otherCommonNames}</td>
+                <td class="border px-8 py-4">{otherCommonNames}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Kingdom</strong>
                 </td>
-                <td>{kingdom}</td>
+                <td class="border px-8 py-4">{kingdom}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Phylum</strong>
                 </td>
-                <td>{phylum}</td>
+                <td class="border px-8 py-4">{phylum}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Tax Class</strong>
                 </td>
-                <td>{taxclass}</td>
+                <td class="border px-8 py-4">{taxclass}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Tax Order</strong>
                 </td>
-                <td>{taxorder}</td>
+                <td class="border px-8 py-4">{taxorder}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Family</strong>
                 </td>
-                <td>{family}</td>
+                <td class="border px-8 py-4">{family}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Genus</strong>
                 </td>
-                <td>{genus}</td>
+                <td class="border px-8 py-4">{genus}</td>
             </tr>
             <tr>
-                <td>
+                <td class="border px-8 py-4">
                     <strong>Informal Taxonomy</strong>
                 </td>
-                <td>{informalTaxonomy}</td>
+                <td class="border px-8 py-4">{informalTaxonomy}</td>
             </tr>
         </tbody>
     </table>

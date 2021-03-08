@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
+import Progress from './Progress';
 
 const BirdImage = ({ src, alt }) => (
     <div class="col-span-3 row-span-full p-1 m-1">
@@ -25,17 +26,20 @@ const CardContent = ({ children }) => (
 );
 
 const BirdDetails = ({ name, species_info: speciesInfo }) => {
+    const [showMore, setShowMore] = useState(false);
     const { taxonomicComments: description, ...otherInfo } = speciesInfo;
+
     return (
         <>
             <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
             <p className="mt-4 bg-white text-sm text-black break-all md:break-all ">{parse(description)}</p>
-            <p className="mt-4 bg-white text-sm text-black break-all md:break-all ">
-                <SpeciesInfoTable {...otherInfo} />
-            </p>
-            <a href="#" className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded">
-                Read More
-            </a>
+            {showMore && <SpeciesInfoTable {...otherInfo} />}
+            <button
+                onClick={() => setShowMore(!showMore)}
+                className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded"
+            >
+                {showMore ? 'Hide Details' : 'Show Details'}
+            </button>
         </>
     );
 };
@@ -44,7 +48,16 @@ export default function BirdCard({ imageUrl, imageAlt, loading, record }) {
     return (
         <Card>
             {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
-            <CardContent>{!record || loading ? 'Loading...' : <BirdDetails {...record} />}</CardContent>
+            <CardContent>
+                {record || loading ? (
+                    <div>
+                        <Progress />
+                        Loading...
+                    </div>
+                ) : (
+                    <BirdDetails {...record} />
+                )}
+            </CardContent>
         </Card>
     );
 }

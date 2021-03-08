@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import Progress from './Progress';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import settings from 'config/settings';
 
-function Widget({ onSuccess, loading }) {
+function Widget({ onSuccess }) {
+    const [triggerClose, setTriggerClose] = useState(false);
+
     const handleUpload = useCallback(
         (error, { event, info }) => {
             if (error) {
@@ -10,10 +11,11 @@ function Widget({ onSuccess, loading }) {
             }
 
             if (event === 'success') {
+                setTriggerClose(true);
                 onSuccess(info);
             }
         },
-        [onSuccess]
+        [onSuccess, setTriggerClose]
     );
 
     const widget = useMemo(
@@ -29,16 +31,12 @@ function Widget({ onSuccess, loading }) {
     );
 
     useEffect(() => {
-        if (!loading) {
+        if (triggerClose) {
             widget.hide();
         }
-    }, [loading, widget]);
+    }, [triggerClose, widget]);
 
     const openWidget = useCallback(() => widget.open(), [widget]);
-
-    if (loading) {
-        return <Progress />;
-    }
 
     return (
         <button

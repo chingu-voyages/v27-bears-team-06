@@ -39,8 +39,7 @@ const Bird = () => {
                 .get(`${settings.REACT_APP_API_URL}/bird`, { params: { image_url: fileImage.imageUrl } })
                 .then((response) => {
                     setLoading(false);
-                    setBirdDetails(response.data);
-                    return response.data;
+                    setBirdDetails(response.data.data);
                 })
                 .catch((error) => {
                     setLoading(false);
