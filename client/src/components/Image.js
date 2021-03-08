@@ -69,8 +69,8 @@ export default function Image({ openWidget, imageUrl, imageAlt, loading, birdDet
                             <div class="flex flex-row justify-between items-center">
                             <div className="p-2">
                             <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
-                            <p className= "mt-4 bg-white text-sm text-black break-normal md:break-all ">{description}</p>
-                            <p className= "mt-4 bg-white text-sm text-black break-normal md:break-all ">Other Info:{JSON.stringify(otherInfo)}</p>
+                            <p className= "mt-4 bg-white text-sm text-black break-all md:break-all ">{description}</p>
+                            <p className= "mt-4 bg-white text-sm text-black break-all md:break-all ">Other Info:{JSON.stringify(otherInfo)}</p>
                             <a href="" className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded">
                                 Read More
                             </a>
