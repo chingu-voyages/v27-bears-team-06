@@ -3,6 +3,7 @@ import BirdCard from './BirdCard';
 import Widget from './Widget';
 import axios from 'axios';
 import settings from 'config/settings';
+import Notification from 'utils/Notification';
 
 const mockedBirdData = {
     id: 1,
@@ -27,6 +28,7 @@ const Bird = () => {
     const [birdDetails, setBirdDetails] = useState(mockedBirdData);
     const [fileImage, setFileImage] = useState({ imageUrl: null, imageAlt: null });
     const [loading, setLoading] = useState(false);
+    const [showNotification, setShowNotification] = useState({});
 
     const onSuccess = useCallback((info) => {
         setFileImage({ imageUrl: info.secure_url, imageAlt: `An image of ${info.original_filename}` });
@@ -40,10 +42,12 @@ const Bird = () => {
                 .then((response) => {
                     setLoading(false);
                     setBirdDetails(response.data.data);
+                    setShowNotification({ type: 'info', message: 'Prediction is processing' });
                 })
                 .catch((error) => {
-                    setLoading(false);
                     console.log(error);
+                    setLoading(false);
+                    setShowNotification({ type: 'warning', message: 'Could not find prediction!' });
                 });
 
         if (fileImage.imageUrl) {
@@ -53,6 +57,7 @@ const Bird = () => {
 
     return (
         <Fragment>
+            <Notification message={showNotification.message} type={showNotification.type} isOpen={!!showNotification.type} />
             <Widget onSuccess={onSuccess} loading={loading} />
             <BirdCard loading={loading} record={birdDetails} {...fileImage} />
         </Fragment>
