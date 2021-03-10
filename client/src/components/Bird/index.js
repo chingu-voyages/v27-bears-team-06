@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState, Fragment } from 'react';
 import BirdCard from './BirdCard';
 import Widget from './Widget';
+import Map from './Map';
 import axios from 'axios';
 import settings from 'config/settings';
 import Notification from 'utils/Notification';
@@ -25,7 +26,7 @@ const mockedBirdData = {
 };
 
 const Bird = () => {
-    const [birdDetails, setBirdDetails] = useState(mockedBirdData);
+    const [birdDetails, setBirdDetails] = useState(null);
     const [fileImage, setFileImage] = useState({ imageUrl: null, imageAlt: null });
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState({});
@@ -60,6 +61,7 @@ const Bird = () => {
             <Notification message={showNotification.message} type={showNotification.type} isOpen={!!showNotification.type} />
             <Widget onSuccess={onSuccess} loading={loading} />
             <BirdCard loading={loading} record={birdDetails} {...fileImage} />
+            <Map predictedBird={birdDetails ? birdDetails.name : ''}/>
         </Fragment>
     );
 };

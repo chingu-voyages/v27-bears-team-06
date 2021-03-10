@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import mapboxgl from "mapbox-gl";
 import ReactMapGL, { NavigationControl, Marker, Popup } from 'react-map-gl';
 import axios from 'axios';
-import useBreakpoints from '../utils/useBreakpoints';
-import settings from '../config/settings';
+import useBreakpoints from '../../utils/useBreakpoints';
+import settings from '../../config/settings';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -51,7 +51,7 @@ const INITIAL_VIEWPORT = {
     zoom: 13,
 };
 
-const Map = ({ predictBird = '' }) => {
+const Map = ({ predictedBird }) => {
     const { isXs, isSm } = useBreakpoints();
     const mobileSize = isXs || isSm;
     const [viewport, setViewport] = useState(INITIAL_VIEWPORT);
@@ -62,7 +62,6 @@ const Map = ({ predictBird = '' }) => {
     useEffect(() => {
         const getPins = () => {
             const config = { params: { lat: userPosition.latitude, lng: userPosition.longitude } };
-
             axios
                 .get(`${settings.REACT_APP_API_URL}/location`, config)
                 .then((response) => setPins(response.data.data))
@@ -114,7 +113,7 @@ const Map = ({ predictBird = '' }) => {
                         <Marker key={index} latitude={pin.lat} longitude={pin.lng} offsetLeft={-19} offsetTop={-37}>
                             <PinIcon
                                 size={40}
-                                color={predictBird.toLowerCase() === pin.comName.toLowerCase() ? 'red' : 'blue'}
+                                color={predictedBird.toLowerCase() === pin.comName.toLowerCase() ? 'red' : 'blue'}
                                 onClick={() => handleSelect(pin)}
                             />
                         </Marker>
