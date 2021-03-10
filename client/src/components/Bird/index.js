@@ -8,7 +8,6 @@ import Notification from 'utils/Notification';
 
 const mockedBirdData = {
     id: 1,
-    image_url: 'https://cdn.britannica.com/57/76057-004-274A29D0.jpg',
     name: 'Laysan Albatross',
     species_info: {
         synonyms: ['Diomedea immutabilis'],
@@ -26,8 +25,8 @@ const mockedBirdData = {
 };
 
 const Bird = () => {
-    const [birdDetails, setBirdDetails] = useState(null);
-    const [fileImage, setFileImage] = useState({ imageUrl: null, imageAlt: null });
+    const [birdDetails, setBirdDetails] = useState(mockedBirdData);
+    const [fileImage, setFileImage] = useState({ imageUrl: 'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg', imageAlt: null });
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState({});
 
