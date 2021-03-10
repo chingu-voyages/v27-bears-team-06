@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
-import Progress from './Progress';
 
 const BirdImage = ({ src, alt }) => (
     <div class="col-span-3 row-span-full p-1 m-1">
@@ -50,10 +49,9 @@ export default function BirdCard({ imageUrl, imageAlt, loading, record }) {
             {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
             <CardContent>
                 {!record || loading ? (
-                    <div>
-                        <Progress />
+                    <span>
                         Loading...
-                    </div>
+                    </span>
                 ) : (
                     <BirdDetails {...record} />
                 )}
