@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import settings from 'config/settings';
+import Button from 'utils/Button';
 
-function Widget({ onSuccess }) {
+function Widget({ onSuccess, loading }) {
     const [triggerClose, setTriggerClose] = useState(false);
 
     const handleUpload = useCallback(
@@ -40,12 +41,9 @@ function Widget({ onSuccess }) {
     const openWidget = useCallback(() => widget.open(), [widget]);
 
     return (
-        <button
-            className="mt-12 px-8 py-4 rounded-l-xl rounded-t-xl font-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-blue-700 transition duration-200 ease-in-out"
-            onClick={openWidget}
-        >
-            Upload Image Via Widget
-        </button>
+        <div className="flex justify-around m-3">
+            <Button disabled={loading} showSpinner={loading} onClick={openWidget} label="Upload Image" />
+        </div>
     );
 }
 

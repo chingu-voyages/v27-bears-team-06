@@ -32,7 +32,7 @@ module.exports = {
             },
             animation: {
                 'slide-in-bottom': 'slide-in-bottom 0.75s both',
-                'slide-out-bottom': 'slide-out-bottom 0.75s both'
+                'slide-out-bottom': 'slide-out-bottom 0.75s both',
             },
         },
         screens: {
@@ -50,7 +50,9 @@ module.exports = {
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            opacity: ['disabled'],
+        },
     },
     plugins: [],
 };
