@@ -1,61 +1,77 @@
 import React, { useState } from 'react';
 import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
+import Button from 'utils/Button';
+import useBreakpoints from 'utils/useBreakpoints';
 
 const BirdImage = ({ src, alt }) => (
-    <div class="col-span-3 row-span-full p-1 m-1">
-        <img src={src} alt={alt} className="displayed-image" />
+    <div className="flex justify-center">
+        <img src={src} alt={alt} className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
     </div>
 );
 
 const Card = ({ children }) => (
-    <div class="p-24 bg-gradient-to-r from-green-400 to-blue-500 ">
-        <div class="max-w-2xl m-auto bg-white ">{children}</div>
+    <div className="p-24 bg-teal-400 flex justify-center">
+        <div className="md:max-w-md">{children}</div>
     </div>
 );
 
 const CardContent = ({ children }) => (
-    <div class="col-span-3 row-span-1 ">
-        <div class="flex align-bottom flex-col leading-none p-2 md:p-4">
-            <div class="flex flex-row justify-between items-center">
-                <div className="p-2">{children}</div>
-            </div>
-        </div>
+    <div className="flex align-bottom flex-col leading-none p-2 md:p-4 bg-white rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1">
+        <div className="flex flex-row justify-between items-center">{children}</div>
     </div>
 );
 
-const BirdDetails = ({ name, species_info: speciesInfo }) => {
+const BirdDetails = ({ name, species_info: speciesInfo, imageUrl, imageAlt }) => {
     const [showMore, setShowMore] = useState(false);
     const { taxonomicComments: description, ...otherInfo } = speciesInfo;
+    const { isXs, isSm } = useBreakpoints();
+    const isMobile = isXs || isSm;
+
+    if (isMobile) {
+        return showMore ? (
+            <div className="p-2">
+                {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
+                <SpeciesInfoTable {...otherInfo} />
+                <Button onClick={() => setShowMore(!showMore)} label={showMore ? 'Hide Details' : 'Show Details'} />
+            </div>
+        ) : (
+            <div className="p-2">
+                {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
+                <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
+                <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
+                <Button onClick={() => setShowMore(!showMore)} label={showMore ? 'Hide Details' : 'Show Details'} />
+            </div>
+        );
+    }
 
     return (
         <>
-            <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
-            <p className="mt-4 bg-white text-sm text-black break-all md:break-all ">{parse(description)}</p>
-            {showMore && <SpeciesInfoTable {...otherInfo} />}
-            <button
-                onClick={() => setShowMore(!showMore)}
-                className="py-2 mt-4 px-6 text-white bg-green-500 inline-block rounded"
-            >
-                {showMore ? 'Hide Details' : 'Show Details'}
-            </button>
+            <div className="p-2">
+                {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
+                <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
+                <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
+                <Button onClick={() => setShowMore(!showMore)} label={showMore ? 'Hide Details' : 'Show Details'} />
+            </div>
+            <div className="p-2">{showMore && <SpeciesInfoTable {...otherInfo} />}</div>
         </>
     );
 };
 
-export default function BirdCard({ imageUrl, imageAlt, loading, record }) {
+export default function BirdCard({ imageUrl, imageAlt = 'Photo of bird', loading, record }) {
     return (
-        <Card>
-            {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
-            <CardContent>
-                {!record || loading ? (
-                    <span>
-                        Loading...
-                    </span>
-                ) : (
-                    <BirdDetails {...record} />
-                )}
-            </CardContent>
-        </Card>
+        <div className="block">
+            <div className="flex items-center justify-center h-screen w-screen bg-teal-400">
+                <Card>
+                    <CardContent image={imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}>
+                        {!record || loading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            <BirdDetails imageUrl={imageUrl} imageAlt={imageAlt} {...record} />
+                        )}
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
     );
 }
