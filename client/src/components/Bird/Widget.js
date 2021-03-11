@@ -41,7 +41,7 @@ function Widget({ onSuccess }) {
 
     return (
         <button
-            className="mt-12 px-8 py-4 rounded-l-xl rounded-t-xl font-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none hover:shadow-lg hover:from-blue-700 transition duration-200 ease-in-out"
+            className="mt-12 px-8 py-4 rounded-l-xl rounded-t-xl font-light antialiased tracking-wide bg-gradient-to-b from-blue-600 to-blue-700 text-white outline-none focus:outline-none  transition duration-200 ease-in-out"
             onClick={openWidget}
         >
             Upload Image Via Widget
