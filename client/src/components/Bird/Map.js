@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import mapboxgl from "mapbox-gl";
+import mapboxgl from 'mapbox-gl';
 import ReactMapGL, { NavigationControl, Marker, Popup } from 'react-map-gl';
 import axios from 'axios';
-import useBreakpoints from '../../utils/useBreakpoints';
-import settings from '../../config/settings';
+import settings from 'config/settings';
+import { useBreakpoints, Card, CardContent } from 'utils';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const PopupCard = ({ comName, lat, lng, locName, sciName }) => {
     return (
@@ -94,75 +95,46 @@ const Map = ({ predictedBird }) => {
     };
 
     return (
-        <div style={mobileSize ? classes.rootMobile : classes.root}>
-            <ReactMapGL
-                width="100vw"
-                height="calc(100vh - 64px)"
-                mapStyle="mapbox://styles/mapbox/streets-v9"
-                mapboxApiAccessToken={settings.REACT_APP_MAPBOX_API_TOKEN}
-                scrollZoom={!mobileSize}
-                onViewportChange={(newViewport) => setViewport(newViewport)}
-                onClick={() => setPopup(null)}
-                {...viewport}
-            >
-                <div style={classes.navigationControl}>
-                    <NavigationControl onViewportChange={(newViewport) => setViewport(newViewport)} />
-                </div>
-                {pins.length > 0 &&
-                    pins.map((pin, index) => (
-                        <Marker key={index} latitude={pin.lat} longitude={pin.lng} offsetLeft={-19} offsetTop={-37}>
-                            <PinIcon
-                                size={40}
-                                color={predictedBird.toLowerCase() === pin.comName.toLowerCase() ? 'red' : 'blue'}
-                                onClick={() => handleSelect(pin)}
-                            />
-                        </Marker>
-                    ))}
-                {popup && (
-                    <Popup
-                        anchor="top"
-                        latitude={popup.lat}
-                        longitude={popup.lng}
-                        closeOnClick={false}
-                        onClose={() => setPopup(null)}
-                    >
-                        <PopupCard {...popup} />
-                    </Popup>
-                )}
-            </ReactMapGL>
-        </div>
+        <Card color="bg-blue-600">
+            <CardContent>
+                <ReactMapGL
+                    width={mobileSize ? '70vw' : '100vw'}
+                    height={`calc(${mobileSize ? '70vh' : '100vh'} - 64px)`}
+                    mapStyle="mapbox://styles/mapbox/streets-v9"
+                    mapboxApiAccessToken={settings.REACT_APP_MAPBOX_API_TOKEN}
+                    scrollZoom={!mobileSize}
+                    onViewportChange={(newViewport) => setViewport(newViewport)}
+                    onClick={() => setPopup(null)}
+                    {...viewport}
+                >
+                    <div className="absolute top-0 left-0 m-1">
+                        <NavigationControl onViewportChange={(newViewport) => setViewport(newViewport)} />
+                    </div>
+                    {pins.length > 0 &&
+                        pins.map((pin, index) => (
+                            <Marker key={index} latitude={pin.lat} longitude={pin.lng} offsetLeft={-19} offsetTop={-37}>
+                                <PinIcon
+                                    size={40}
+                                    color={predictedBird.toLowerCase() === pin.comName.toLowerCase() ? 'red' : 'blue'}
+                                    onClick={() => handleSelect(pin)}
+                                />
+                            </Marker>
+                        ))}
+                    {popup && (
+                        <Popup
+                            anchor="top"
+                            latitude={popup.lat}
+                            longitude={popup.lng}
+                            closeOnClick={false}
+                            onClose={() => setPopup(null)}
+                        >
+                            <PopupCard {...popup} />
+                        </Popup>
+                    )}
+                </ReactMapGL>
+            </CardContent>
+        </Card>
     );
-};
-
-const classes = {
-    root: {
-        display: 'flex',
-    },
-    rootMobile: {
-        display: 'flex',
-        flexDirection: 'column-reverse',
-    },
-    navigationControl: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        margin: '1em',
-    },
-    deleteIcon: {
-        color: 'red',
-    },
-    popupImage: {
-        padding: '0.4em',
-        height: 200,
-        width: 200,
-        objectFit: 'cover',
-    },
-    popupTab: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-    },
 };
 
 export default Map;
