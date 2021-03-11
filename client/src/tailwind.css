@@ -12,3 +12,10 @@
     -webkit-animation: spinner 1.5s linear infinite;
     animation: spinner 1.5s linear infinite;
   }
+
+  /* Debug CSS Helper */
+  /* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  } */

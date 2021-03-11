@@ -57,9 +57,10 @@ module.exports = {
         },
     },
     variants: {
+        scrollSnapType: ['responsive'],
         extend: {
             opacity: ['disabled'],
         },
     },
-    plugins: [],
+	plugins: [require('tailwindcss-scroll-snap')],
 };
