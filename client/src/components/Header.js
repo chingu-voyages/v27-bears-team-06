@@ -9,7 +9,7 @@ export default function Header(props) {
 
     return (
         <div
-            className="relative pt-16 pb-32 flex content-center items-center justify-center"
+            className="relative pt-16 pb-32 flex content-center items-center justify-center snap-center"
             style={{
                 minHeight: '75vh',
             }}
