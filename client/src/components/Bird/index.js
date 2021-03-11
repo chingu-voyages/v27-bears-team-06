@@ -24,9 +24,14 @@ const mockedBirdData = {
     },
 };
 
+const mockedBirdImage = {
+    imageUrl: 'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg',
+    imageAlt: null,
+};
+
 const Bird = () => {
     const [birdDetails, setBirdDetails] = useState(mockedBirdData);
-    const [fileImage, setFileImage] = useState({ imageUrl: 'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg', imageAlt: null });
+    const [fileImage, setFileImage] = useState({ imageUrl: mockedBirdImage.imageUrl, imageAlt: null });
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState({});
 
@@ -57,10 +62,14 @@ const Bird = () => {
 
     return (
         <Fragment>
-            <Notification message={showNotification.message} type={showNotification.type} isOpen={!!showNotification.type} />
+            <Notification
+                message={showNotification.message}
+                type={showNotification.type}
+                isOpen={!!showNotification.type}
+            />
             <Widget onSuccess={onSuccess} loading={loading} />
             <BirdCard loading={loading} record={birdDetails} {...fileImage} />
-            <Map predictedBird={birdDetails ? birdDetails.name : ''}/>
+            <Map predictedBird={birdDetails ? birdDetails.name : ''} />
         </Fragment>
     );
 };
