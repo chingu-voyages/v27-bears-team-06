@@ -47,7 +47,6 @@ const Bird = () => {
                 .then((response) => {
                     setLoading(false);
                     setBirdDetails(response.data.data);
-                    setShowNotification({ type: 'info', message: 'Prediction is processing' });
                 })
                 .catch((error) => {
                     console.log(error);
@@ -56,6 +55,7 @@ const Bird = () => {
                 });
 
         if (fileImage.imageUrl) {
+            setShowNotification({ type: 'info', message: 'Prediction is processing' });
             sendBirdData();
         }
     }, [fileImage.imageUrl]);
