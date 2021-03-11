@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
 import { useBreakpoints, Button, Card, CardContent } from 'utils';
+import axios from 'axios';
 
 const BirdImage = ({ src, alt }) => (
     <div className="flex justify-center">
@@ -40,14 +41,36 @@ const DesktopView = ({ record, imageUrl, imageAlt }) => {
     const { name, species_info: speciesInfo } = record;
     const { taxonomicComments: description, ...otherInfo } = speciesInfo;
 
+    const redirectToEBirdUrl = useCallback(() => {
+        const config = {
+            params: {
+                locale: 'en_US',
+                cat: 'species',
+                limit: 150,
+                key: 'jfekjedvescr',
+                q: name,
+            },
+        };
+        axios
+            .get(`https://api.ebird.org/v2/ref/taxon/find`, config)
+            .then((response) => {
+                const speciesCode = response.data[0].code;
+                window.open(`https://ebird.org/species/${speciesCode}`, '_blank');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [name]);
+
     return (
         <>
-            <div className="p-4">
+            <div className="p-4 flex justify-center items-center flex-col">
                 {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
                 <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
                 <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
+                <Button onClick={redirectToEBirdUrl} label="Read More" />
             </div>
-            <div className="p-4">
+            <div className="p-4 flex justify-center items-center flex-col">
                 <SpeciesInfoTable {...otherInfo} />
             </div>
         </>
