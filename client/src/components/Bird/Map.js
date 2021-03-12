@@ -11,15 +11,15 @@ mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 const PopupCard = ({ comName, lat, lng, locName, sciName }) => {
     return (
-        <div className="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
+        <div className="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1">
             <div className="m-3">
-                <h2 className="text-lg mb-2">
+                <h2 className="mb-2 text-lg">
                     {`${comName} (${sciName})`}
-                    <span className="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">
+                    <span className="inline float-right px-2 font-mono text-sm text-teal-800 align-top bg-teal-100 rounded-full animate-pulse">
                         {lat.toFixed(6)},{lng.toFixed(6)}
                     </span>
                 </h2>
-                <p className="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200">
+                <p className="font-mono text-sm font-light text-gray-700 transition-all duration-200 hover:text-gray-900">
                     {locName}
                 </p>
             </div>
@@ -49,7 +49,7 @@ const PinIcon = ({ size, color, onClick }) => (
 const INITIAL_VIEWPORT = {
     latitude: 37.7577,
     longitude: -122.4376,
-    zoom: 13,
+    zoom: 11,
 };
 
 const Map = ({ predictedBird }) => {
@@ -97,41 +97,68 @@ const Map = ({ predictedBird }) => {
     return (
         <Card color="bg-blue-600">
             <CardContent>
-                <ReactMapGL
-                    width={mobileSize ? '70vw' : '100vw'}
-                    height={`calc(${mobileSize ? '70vh' : '100vh'} - 64px)`}
-                    mapStyle="mapbox://styles/mapbox/streets-v9"
-                    mapboxApiAccessToken={settings.REACT_APP_MAPBOX_API_TOKEN}
-                    scrollZoom={!mobileSize}
-                    onViewportChange={(newViewport) => setViewport(newViewport)}
-                    onClick={() => setPopup(null)}
-                    {...viewport}
-                >
-                    <div className="absolute top-0 left-0 m-1">
-                        <NavigationControl onViewportChange={(newViewport) => setViewport(newViewport)} />
+                <div className="p-2" style={{ height: '80vh' }}>
+                    <div className="mt-1 text-center">
+                        <h3 className="mb-4 text-4xl font-semibold leading-normal text-gray-800 md:mb-2 md:text-2xl">Birds In Your Area</h3>
+                        <small className="mb-4 text-lg leading-relaxed text-gray-800 md:mb-2 md:text-xs">
+                            Note: Blue icons are other bird sightings; Red icons are bird sightings matching your
+                            observed bird.
+                        </small>
                     </div>
-                    {pins.length > 0 &&
-                        pins.map((pin, index) => (
-                            <Marker key={index} latitude={pin.lat} longitude={pin.lng} offsetLeft={-19} offsetTop={-37}>
-                                <PinIcon
-                                    size={40}
-                                    color={predictedBird.toLowerCase() === pin.comName.toLowerCase() ? 'red' : 'blue'}
-                                    onClick={() => handleSelect(pin)}
-                                />
-                            </Marker>
-                        ))}
-                    {popup && (
-                        <Popup
-                            anchor="top"
-                            latitude={popup.lat}
-                            longitude={popup.lng}
-                            closeOnClick={false}
-                            onClose={() => setPopup(null)}
+                    <div
+                        className="w-full h-full mt-4"
+                        style={{
+                            width: '70vw',
+                            height: `calc(65vh - 64px)`,
+                        }}
+                    >
+                        <ReactMapGL
+                            width="100%"
+                            height="100%"
+                            mapStyle="mapbox://styles/mapbox/streets-v9"
+                            mapboxApiAccessToken={settings.REACT_APP_MAPBOX_API_TOKEN}
+                            scrollZoom={!mobileSize}
+                            onViewportChange={(newViewport) => setViewport(newViewport)}
+                            onClick={() => setPopup(null)}
+                            {...viewport}
                         >
-                            <PopupCard {...popup} />
-                        </Popup>
-                    )}
-                </ReactMapGL>
+                            <div className="absolute top-0 left-0 m-1">
+                                <NavigationControl onViewportChange={(newViewport) => setViewport(newViewport)} />
+                            </div>
+                            {pins.length > 0 &&
+                                pins.map((pin, index) => (
+                                    <Marker
+                                        key={index}
+                                        latitude={pin.lat}
+                                        longitude={pin.lng}
+                                        offsetLeft={-19}
+                                        offsetTop={-37}
+                                    >
+                                        <PinIcon
+                                            size={40}
+                                            color={
+                                                predictedBird.toLowerCase() === pin.comName.toLowerCase()
+                                                    ? 'red'
+                                                    : 'blue'
+                                            }
+                                            onClick={() => handleSelect(pin)}
+                                        />
+                                    </Marker>
+                                ))}
+                            {popup && (
+                                <Popup
+                                    anchor="top"
+                                    latitude={popup.lat}
+                                    longitude={popup.lng}
+                                    closeOnClick={false}
+                                    onClose={() => setPopup(null)}
+                                >
+                                    <PopupCard {...popup} />
+                                </Popup>
+                            )}
+                        </ReactMapGL>
+                    </div>
+                </div>
             </CardContent>
         </Card>
     );
