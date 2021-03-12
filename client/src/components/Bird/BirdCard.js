@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const BirdImage = ({ src, alt }) => (
     <div className="flex justify-center">
-        <img src={src} alt={alt} className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
+        <img src={src} alt={alt} className="h-auto max-w-full align-middle border-none rounded shadow-lg max-h-72" />
     </div>
 );
 
@@ -46,7 +46,7 @@ const MobileView = ({ record, imageUrl, imageAlt }) => {
                 <SpeciesInfoTable {...otherInfo} />
             ) : (
                 <>
-                    <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
+                    <h1 className="py-2 text-2xl font-bold text-green-800">{name}</h1>
                     <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
                 </>
             ),
@@ -69,9 +69,9 @@ const DesktopView = ({ record, imageUrl, imageAlt }) => {
 
     return (
         <>
-            <div className="p-4 flex justify-center items-center flex-col">
+            <div className="flex flex-col items-center justify-center p-4">
                 {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
-                <h1 className="text-2xl font-bold text-green-800 py-2">{name}</h1>
+                <h1 className="py-2 text-2xl font-bold text-green-800">{name}</h1>
                 <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
                 <EBirdRedirectButton name={name} />
             </div>
