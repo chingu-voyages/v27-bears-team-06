@@ -42,12 +42,12 @@ export default function Header(props) {
                             >
                                 <Typical steps={steps} loop={Infinity} wrapper="span" />
                             </h2>
-
-                            <p className="mt-6 mb-4 text-xl font-light leading-relaxed text-white break-words md:break-all md:inline-block">
-                                Avian detects what kind of a bird is on a uploaded image using efficient collection of
-                                training data and helping a community to learn more about bird life in their area. Let's
-                                find your bird! To start just select an image to upload.
+                            <div className="px-10 ">
+                            <p className="mt-16 text-xl max-w-prose font-light leading-relaxed text-white break-words md:break-words">
+                             Birds are a group of warm-blooded vertebrates constituting the class Aves, characterised by feathers, toothless beaked jaws, the laying of hard-shelled eggs,
+                             a high metabolic rate, a four-chambered heart, and a strong yet lightweight skeleton. -Wikipedia
                             </p>
+                            </div>
                         </div>
                     </div>
                 </div>
