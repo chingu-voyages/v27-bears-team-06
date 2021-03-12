@@ -10,7 +10,7 @@ const BirdImage = ({ src, alt }) => (
     </div>
 );
 
-const EBirdRedirectButton = ({name}) => {
+const EBirdRedirectButton = ({ name }) => {
     const redirectToEBirdUrl = useCallback(() => {
         const config = {
             params: {
@@ -32,8 +32,8 @@ const EBirdRedirectButton = ({name}) => {
             });
     }, [name]);
 
-    return <Button onClick={redirectToEBirdUrl} label="Read More" />
-}
+    return <Button onClick={redirectToEBirdUrl} label="Read More" />;
+};
 
 const MobileView = ({ record, imageUrl, imageAlt }) => {
     const [showMore, setShowMore] = useState(false);
@@ -93,9 +93,10 @@ const BirdDetails = (props) => {
     return <DesktopView {...props} />;
 };
 
-export default function BirdCard({ imageUrl, imageAlt = 'Photo of bird', loading, record }) {
+export default function BirdCard({ imageUrl, imageAlt = 'Photo of bird', loading, record, children }) {
     return (
         <Card color="bg-teal-400">
+            {children}
             <CardContent>
                 {!record || loading ? (
                     <span>Loading...</span>

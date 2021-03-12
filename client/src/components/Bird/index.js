@@ -67,8 +67,9 @@ const Bird = () => {
                 type={showNotification.type}
                 isOpen={!!showNotification.type}
             />
-            <Widget onSuccess={onSuccess} loading={loading} />
-            <BirdCard loading={loading} record={birdDetails} {...fileImage} />
+            <BirdCard loading={loading} record={birdDetails} {...fileImage}>
+                <Widget onSuccess={onSuccess} loading={loading} />
+            </BirdCard>
             <Map predictedBird={birdDetails ? birdDetails.name : ''} />
         </Fragment>
     );
