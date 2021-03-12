@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import Typical from 'react-typical';
+import birdsList from 'utils/birdsList';
+
+const getSteps = () => {
+    const steps = []
+    birdsList.forEach((bird) => {
+        steps.push(bird.name, 2500,)
+    });
+
+    return steps;
+}
 
 export default function Header(props) {
-    const [animated, setAnimated] = useState(false);
-    useEffect(() => {
-        setAnimated(true);
-    }, []);
+    const steps = useMemo(() => getSteps(), []);
 
     return (
         <div
-            className="relative pt-16 pb-32 flex content-center items-center justify-center snap-center"
+            className="relative flex items-center content-center justify-center pt-16 pb-32 snap-center"
             style={{
                 minHeight: '75vh',
             }}
@@ -21,28 +28,22 @@ export default function Header(props) {
                         "url('https://images.unsplash.com/photo-1506220926022-cc5c12acdb35?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80')",
                 }}
             >
-                <span id="blackOverlay" className="w-full h-full absolute opacity-20 bg-black"></span>
+                <span id="blackOverlay" className="absolute w-full h-full bg-black opacity-20"></span>
             </div>
             <div className="container relative mx-auto">
-                <div className="items-center flex flex-wrap">
+                <div className="flex flex-wrap items-center">
                     <div className="w-full px-4 ml-auto mr-auto text-center">
                         <div className="px-6">
-                            <h1 className="text-white font-semibold text-5xl mt-20">
+                            <h1 className="mt-20 text-5xl font-semibold text-white">
                                 Recognize our feathered friends!
                             </h1>
                             <h2
-                                className={`${
-                                    animated ? '' : 'translate-y-10 opacity-0'
-                                }  transform transition duration-2000 ease-in-out font-bold text-2xl text-blue-500 mt-10`}
+                                className={`transform transition duration-2000 ease-in-out font-bold text-2xl text-blue-500 mt-10`}
                             >
-                                <Typical
-                                    steps={['Falcon', 1000, 'BlueJay', 1000, 'Hummingbird', 1000]}
-                                    loop={Infinity}
-                                    wrapper="p"
-                                />
+                                <Typical steps={steps} loop={Infinity} wrapper="span" />
                             </h2>
 
-                            <p className="text-xl font-light leading-relaxed mt-6 mb-4 text-white break-words md:break-all md:inline-block">
+                            <p className="mt-6 mb-4 text-xl font-light leading-relaxed text-white break-words md:break-all md:inline-block">
                                 Avian detects what kind of a bird is on a uploaded image using efficient collection of
                                 training data and helping a community to learn more about bird life in their area. Let's
                                 find your bird! To start just select an image to upload.

@@ -14,9 +14,8 @@ function App() {
                 <Header />
                 <About />
                 <Bird />
-     <Footer />     
+                <Footer />
             </main>
-
         </>
     );
 }
