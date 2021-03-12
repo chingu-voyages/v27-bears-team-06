@@ -9,8 +9,8 @@ import './App.css';
 function App() {
     return (
         <>
-            <Navbar transparent />
-            <main className="overflow-y-scroll snap snap-y snap-proximity h-screen">
+            <Navbar />
+            <main className="h-screen overflow-y-scroll snap snap-y snap-proximity">
                 <Header />
                 <About />
                 <Bird />
