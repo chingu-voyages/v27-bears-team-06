@@ -1,77 +1,19 @@
-import React from "react";
+import React from 'react';
 
-
-export default function Navbar(props) {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+export default function Navigation() {
   return (
-    <>
-      <nav
-        className={
-          (props.transparent
-            ? "top-0 absolute z-50 w-full"
-            : "relative bg-white shadow-lg") +
-          " flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
-        }
-      >
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <a
-              className={
-                (props.transparent ? "text-green-400" : "text-gray-800") +
-                " text-3xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase"
-              }
-              href=""
-            >
-              AVIAN
-            </a>
-            <button
-              className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-              type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              <i
-                className={
-                  (props.transparent ? "text-white" : "text-gray-800") +
-                  " fas fa-bars"
-                }
-              ></i>
-            </button>
-          </div>
-          <div
-            className={
-              "lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none" +
-              (navbarOpen ? " block rounded shadow-lg" : " hidden")
-            }
-            id="example-navbar-warning"
-          >
-            
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-
-              <li className="flex items-center">
-                <a
-                  className={
-                    (props.transparent
-                      ? "lg:text-white lg:hover:text-gray-300 text-gray-800"
-                      : "text-gray-800 hover:text-gray-600") +
-                    " px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  }
-                  href="#pablo"
-                >
-                  <i
-                    className={
-                      (props.transparent
-                        ? "lg:text-gray-300 text-gray-500"
-                        : "text-gray-500") +
-                      " fab fa-github text-lg leading-lg "
-                    }
-                  />
-                  <span className="lg:hidden inline-block ml-2">Star</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div
+      style={{
+        background: '#FFFFFF',
+      }}
+      className=" fixed top-0 w-screen z-40  "
+    >
+      <div className="text-3xl justify-between px-2 py-2 font-bold text-blue-500 flex-1 cursor-pointer flex items-center w-10/12 mx-auto py-3">
+          <h1 className="">
+            AVIAN   
+          </h1>
+          <a href="https://github.com/chingu-voyages/v27-bears-team-06/tree/develop"><i class="fab fa-github fa-lg"></i></a>
         </div>
-      </nav>
-    </>
+    </div>
   );
 }
