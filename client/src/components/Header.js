@@ -16,7 +16,7 @@ export default function Header(props) {
 
     return (
         <div
-            className="relative flex items-center content-center justify-center pt-16 pb-32 snap-center"
+            className="relative flex items-center content-center justify-center pt-16 pb-32 snap-center "
             style={{
                 minHeight: '75vh',
             }}
@@ -24,11 +24,11 @@ export default function Header(props) {
             <div
                 className="absolute top-0 w-full h-full bg-right-top bg-cover"
                 style={{
-                    backgroundImage:
-                        "url('https://images.unsplash.com/photo-1506220926022-cc5c12acdb35?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80')",
-                }}
+                    backgroundImage:"url('https://images.unsplash.com/photo-1506220926022-cc5c12acdb35?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1650&q=80')",
+                    alt: "bird"
+                    }}
             >
-                <span id="blackOverlay" className="absolute w-full h-full bg-black opacity-20"></span>
+                <span className="absolute w-full h-full bg-black opacity-20"></span>
             </div>
             <div className="container relative mx-auto">
                 <div className="flex flex-wrap items-center">

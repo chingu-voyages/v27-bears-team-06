@@ -12,7 +12,7 @@ export default function Navigation() {
           <h1 className="">
             AVIAN   
           </h1>
-          <a href="https://github.com/chingu-voyages/v27-bears-team-06/tree/develop"><i class="fab fa-github fa-lg"></i></a>
+          <a href="https://github.com/chingu-voyages/v27-bears-team-06/tree/develop"><i className="fab fa-github fa-lg"><span className= "text-lg ml-3">Github</span></i></a>
         </div>
     </div>
   );
