@@ -42,7 +42,7 @@ export default function Header(props) {
                             >
                                 <Typical steps={steps} loop={Infinity} wrapper="span" />
                             </h2>
-                            <p className="mt-16 text-xl max-w-prose font-light leading-relaxed text-white break-words md:break-words">
+                            <p className="mt-16 text-xl max-w-prose-center font-light leading-relaxed text-white break-words md:break-words">
                              Birds are a group of warm-blooded vertebrates constituting the class Aves, characterised by feathers, toothless beaked jaws, the laying of hard-shelled eggs,
                              a high metabolic rate, a four-chambered heart, and a strong yet lightweight skeleton. -Wikipedia
                             </p>
