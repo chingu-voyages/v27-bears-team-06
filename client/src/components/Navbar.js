@@ -2,11 +2,8 @@ import React from 'react';
 
 export default function Navigation() {
     return (
-        <div
-            style={{
-                background: '#FFFFFF',
-            }}
-            className="fixed top-0 z-40 w-screen "
+        <nav
+            className="relative z-40 w-full bg-white"
         >
             <div className="flex items-center justify-between flex-1 w-10/12 px-2 py-2 py-3 mx-auto text-3xl font-bold text-blue-500 cursor-pointer">
                 <h1 className="">AVIAN</h1>
@@ -16,6 +13,6 @@ export default function Navigation() {
                     </i>
                 </a>
             </div>
-        </div>
+        </nav>
     );
 }

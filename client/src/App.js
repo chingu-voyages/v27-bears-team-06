@@ -8,8 +8,8 @@ import './App.css';
 function App() {
     return (
         <>
-            <Navbar />
             <main className="h-screen overflow-y-scroll snap snap-y snap-proximity">
+                <Navbar />
                 <Header />
                 <Bird />
                 <Footer />
