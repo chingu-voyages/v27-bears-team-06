@@ -1,0 +1,21 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+  button {
+    cursor: pointer;
+  }
+
+  .loader {
+    border-top-color: #3498db;
+    -webkit-animation: spinner 1.5s linear infinite;
+    animation: spinner 1.5s linear infinite;
+  }
+
+  /* Debug CSS Helper */
+  /* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  } */

@@ -25,10 +25,10 @@
     <img src="https://chingu.io/logo-with-text-192.png" alt="Logo" height="80">
   </a>
 
-  <h3 align="center">project_title </h3>
+  <h3 align="center">Bird Identifier </h3>
 
   <p align="center">
-    Bird Identifier | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
+    Bird identification through deep learning | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
     <br />
     <a href="https://github.com/chingu-voyages/v27-bears-team-06"><strong>Explore the docs »</strong></a>
     <br />
@@ -57,7 +57,8 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#front-end-setup">Front End Setup</a></li>
+        <li><a href="#back-end-setup">Back End Setup</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -83,10 +84,12 @@ Give users the ability to send photo URL of a bird to a web app that will determ
 ### Built With
 
 * [React](https://reactjs.org/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Cloudinary](https://cloudinary.com/)
 * [Go](https://golang.org/)
+* [Gin](https://github.com/codehakase/golang-gin)
 * [Pytorch](https://pytorch.org/)
-
-
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -95,24 +98,37 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Clone the repo
+1. [Install Golang](https://golang.org/doc/install)
+2. Clone the repo
    ```sh
    git clone https://github.com/chingu-voyages/v27-bears-team-06.git
+   ```
+
+### Front End Setup
+
+1. Enter client directory
+   ```
+   cd .\client\
    ```
 2. Install NPM packages
    ```sh
    npm install
    ```
+3. Start local
+   ```sh
+   npm run start
+   ```
+   
+### Back End Setup
 
-
+1. Enter client directory
+   ```
+   cd .\server\
+   ```
+2. Start local
+   ```sh
+   go run main.go
+   ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
