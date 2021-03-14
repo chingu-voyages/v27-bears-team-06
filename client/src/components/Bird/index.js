@@ -30,8 +30,8 @@ const mockedBirdImage = {
 };
 
 const Bird = () => {
-    const [birdDetails, setBirdDetails] = useState(mockedBirdData);
-    const [fileImage, setFileImage] = useState({ imageUrl: mockedBirdImage.imageUrl, imageAlt: null });
+    const [birdDetails, setBirdDetails] = useState(null);
+    const [fileImage, setFileImage] = useState({ imageUrl: null, imageAlt: null });
     const [loading, setLoading] = useState(false);
     const [showNotification, setShowNotification] = useState({});
 
