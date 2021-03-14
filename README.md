@@ -25,7 +25,7 @@
     <img src="https://chingu.io/logo-with-text-192.png" alt="Logo" height="80">
   </a>
 
-  <h3 align="center">Bird Identifier </h3>
+  <h1 align="center">Avian</h1>
 
   <p align="center">
     Bird identification through deep learning | Voyage-27: Bears Team #6 | <a href="https://chingu.io/"><strong>Powered By Chingu</strong></a> | <a href="https://twitter.com/ChinguCollabs"><strong>Twitter</strong></a>
@@ -75,14 +75,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<h1 align="center">
-  AVIAN
-</h1>
-
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif" />
+  <img src="./.github/demos/header-demo.gif" />
 </p>
-
 
 People often see birds they are unfamiliar with and want to identify them and learn more about them.
 
