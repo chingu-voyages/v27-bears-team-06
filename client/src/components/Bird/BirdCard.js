@@ -82,9 +82,13 @@ const DesktopView = ({ record, imageUrl, imageAlt }) => {
     );
 };
 
-const BirdDetails = (props) => {
+const BirdDetails = ({ loading, ...props }) => {
     const { isXs, isSm } = useBreakpoints();
     const isMobile = isXs || isSm;
+
+    if (loading) {
+        return <span>Loading...</span>;
+    }
 
     if (isMobile) {
         return <MobileView {...props} />;
@@ -93,17 +97,29 @@ const BirdDetails = (props) => {
     return <DesktopView {...props} />;
 };
 
+const PlaceholderBird = () => (
+    <div className="flex flex-col items-center justify-center p-4">
+        <BirdImage
+            src={'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg'}
+            alt="Placeholder bird"
+        />
+        <h1 className="py-2 text-2xl font-bold text-green-800">
+            Start by uploading an image via the "Send Prediction" button above
+        </h1>
+    </div>
+);
+
 export default function BirdCard({ imageUrl, imageAlt = 'Photo of bird', loading, record, children }) {
     return (
         <Card color="bg-teal-400">
-            {children}
             <CardContent>
-                {!record || loading ? (
-                    <span>Loading...</span>
+                {!record && !loading ? (
+                    <PlaceholderBird />
                 ) : (
-                    <BirdDetails imageUrl={imageUrl} imageAlt={imageAlt} record={record} />
+                    <BirdDetails imageUrl={imageUrl} imageAlt={imageAlt} record={record} loading={loading} />
                 )}
             </CardContent>
+            {children}
         </Card>
     );
 }
