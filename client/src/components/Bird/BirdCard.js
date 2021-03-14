@@ -3,11 +3,15 @@ import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
 import { useBreakpoints, Button, Card, CardContent } from 'utils';
 import axios from 'axios';
-import ExampleImage from 'assets/examplebird.jpg'
+import ExampleImage from 'assets/examplebird.jpg';
 
 const BirdImage = ({ src, alt }) => (
     <div className="flex justify-center">
-        <img src={src} alt={alt} className="h-auto max-w-full align-middle border-none rounded shadow-lg max-h-72 md:max-h-40" />
+        <img
+            src={src}
+            alt={alt}
+            className="h-auto max-w-full align-middle border-none rounded shadow-lg max-h-72 md:max-h-40"
+        />
     </div>
 );
 
@@ -39,26 +43,27 @@ const EBirdRedirectButton = ({ name }) => {
 const MobileView = ({ record, imageUrl, imageAlt }) => {
     const [showMore, setShowMore] = useState(false);
     const { name, species_info: speciesInfo } = record;
+    const hasSpeciesInfo = 0 < Object.keys(speciesInfo).length;
     const { taxonomicComments: description, ...otherInfo } = speciesInfo;
 
     const Content = useCallback(
         () =>
-            showMore ? (
+            showMore && hasSpeciesInfo ? (
                 <SpeciesInfoTable {...otherInfo} />
             ) : (
                 <>
                     <h1 className="py-2 text-2xl font-bold text-green-800">{name}</h1>
-                    <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
+                    <p className="mt-4 text-sm text-black break-all md:break-all ">{hasSpeciesInfo ? parse(description) : ''}</p>
                 </>
             ),
-        [description, name, otherInfo, showMore]
+        [description, hasSpeciesInfo, name, otherInfo, showMore]
     );
 
     return (
         <div className="p-2">
             {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
             <Content />
-            <Button onClick={() => setShowMore(!showMore)} label={showMore ? 'Hide Details' : 'Show Details'} />
+            {hasSpeciesInfo && <Button onClick={() => setShowMore(!showMore)} label={showMore ? 'Hide Details' : 'Show Details'} />}
             <EBirdRedirectButton name={name} />
         </div>
     );
@@ -66,6 +71,7 @@ const MobileView = ({ record, imageUrl, imageAlt }) => {
 
 const DesktopView = ({ record, imageUrl, imageAlt }) => {
     const { name, species_info: speciesInfo } = record;
+    const hasSpeciesInfo = 0 < Object.keys(speciesInfo).length;
     const { taxonomicComments: description, ...otherInfo } = speciesInfo;
 
     return (
@@ -73,11 +79,11 @@ const DesktopView = ({ record, imageUrl, imageAlt }) => {
             <div className="flex flex-col items-center justify-center p-4">
                 {imageUrl && <BirdImage src={imageUrl} alt={imageAlt} />}
                 <h1 className="py-2 text-2xl font-bold text-green-800">{name}</h1>
-                <p className="mt-4 text-sm text-black break-all md:break-all ">{parse(description)}</p>
+                <p className="mt-4 text-sm text-black break-all md:break-all ">{hasSpeciesInfo ? parse(description) : ''}</p>
                 <EBirdRedirectButton name={name} />
             </div>
             <div className="p-4">
-                <SpeciesInfoTable {...otherInfo} />
+                {hasSpeciesInfo && <SpeciesInfoTable {...otherInfo} />}
             </div>
         </>
     );
@@ -100,10 +106,7 @@ const BirdDetails = ({ loading, ...props }) => {
 
 const PlaceholderBird = () => (
     <div className="flex flex-col items-center justify-center p-4">
-        <BirdImage
-            src={ExampleImage}
-            alt="Placeholder bird"
-        />
+        <BirdImage src={ExampleImage} alt="Placeholder bird" />
         <h1 className="py-2 text-2xl font-bold text-green-800">
             Start by uploading an image via the "Send Prediction" button above
         </h1>
