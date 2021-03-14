@@ -75,7 +75,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<h1 align="center">
+  AVIAN
+</h1>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif" />
+</p>
+
 
 People often see birds they are unfamiliar with and want to identify them and learn more about them.
 
