@@ -33,7 +33,7 @@
     <a href="https://github.com/chingu-voyages/v27-bears-team-06"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/chingu-voyages/v27-bears-team-06">View Demo</a>
+    <a href="https://avian-app.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/chingu-voyages/v27-bears-team-06/issues">Report Bug</a>
     ·
@@ -85,6 +85,7 @@
 People often see birds they are unfamiliar with and want to identify them and learn more about them.
 
 Give users the ability to send photo URL of a bird to a web app that will determine if the bird is recognized and if so, respond with the name of the bird. If the image isn’t recognized the app will simply respond that it isn’t recognized.
+<!-- FEATURES -->
 
 ### Features
 
@@ -98,6 +99,9 @@ Give users the ability to send photo URL of a bird to a web app that will determ
 <p align="center">
   <img src="./.github/demos/map-demo.gif" />
 </p>
+
+<!-- Built With -->
+
 ### Built With
 
 * [React](https://reactjs.org/)
