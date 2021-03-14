@@ -75,9 +75,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<p align="center">
-  <img src="![avian](https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif)/>
-</p>
+
+  <center><img src="![avian](https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif)/></center>
 
 
 People often see birds they are unfamiliar with and want to identify them and learn more about them.
