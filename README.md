@@ -76,7 +76,7 @@
 ## About The Project
 
 <p align="center">
-  <img src=" ![avian](https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif)" alt="animated" />
+  <img src=" https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif" alt="avian" />
 </p>
 
  ![avian](https://user-images.githubusercontent.com/23249535/111078286-0dd19a80-84cb-11eb-83d5-8651cd3b8b7e.gif)
