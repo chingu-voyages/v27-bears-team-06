@@ -99,7 +99,9 @@ const Map = ({ predictedBird }) => {
             <CardContent>
                 <div className="p-2" style={{ height: '80vh' }}>
                     <div className="mt-1 text-center">
-                        <h3 className="mb-4 text-4xl font-semibold leading-normal text-gray-800 md:mb-2 md:text-2xl">Birds In Your Area</h3>
+                        <h3 className="mb-4 text-4xl font-semibold leading-normal text-gray-800 md:mb-2 md:text-2xl">
+                            Birds In Your Area
+                        </h3>
                         <small className="mb-4 text-lg leading-relaxed text-gray-800 md:mb-2 md:text-xs">
                             Note: Blue icons are other bird sightings; Red icons are bird sightings matching your
                             observed bird.
