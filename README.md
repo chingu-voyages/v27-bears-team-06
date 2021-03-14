@@ -50,6 +50,9 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#features">Features</a></li>
+      </ul>
+      <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -83,6 +86,18 @@ People often see birds they are unfamiliar with and want to identify them and le
 
 Give users the ability to send photo URL of a bird to a web app that will determine if the bird is recognized and if so, respond with the name of the bird. If the image isn’t recognized the app will simply respond that it isn’t recognized.
 
+### Features
+
+* CSS Scroll Snap 
+* Responsive Design
+* Bird prediction via image upload
+<p align="center">
+  <img src="./.github/demos/image-upload-demo.gif" />
+</p>
+* Interactive Map displays observations in user's area
+<p align="center">
+  <img src="./.github/demos/map-demo.gif" />
+</p>
 ### Built With
 
 * [React](https://reactjs.org/)
@@ -171,8 +186,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
-
 Project Link: [https://github.com/chingu-voyages/v27-bears-team-06](https://github.com/chingu-voyages/v27-bears-team-06)
 
 
@@ -180,9 +193,8 @@ Project Link: [https://github.com/chingu-voyages/v27-bears-team-06](https://gith
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 
-* []()
-* []()
-* []()
+* [eBird](https://ebird.org/home)
+* [NatureServe](https://explorer.natureserve.org/api-docs/#_species_search)
 
 
 
