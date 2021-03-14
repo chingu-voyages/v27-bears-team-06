@@ -3,6 +3,7 @@ import parse from 'html-react-parser';
 import SpeciesInfoTable from './SpeciesInfoTable';
 import { useBreakpoints, Button, Card, CardContent } from 'utils';
 import axios from 'axios';
+import ExampleImage from 'assets/examplebird.jpg'
 
 const BirdImage = ({ src, alt }) => (
     <div className="flex justify-center">
@@ -100,7 +101,7 @@ const BirdDetails = ({ loading, ...props }) => {
 const PlaceholderBird = () => (
     <div className="flex flex-col items-center justify-center p-4">
         <BirdImage
-            src={'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg'}
+            src={ExampleImage}
             alt="Placeholder bird"
         />
         <h1 className="py-2 text-2xl font-bold text-green-800">
