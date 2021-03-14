@@ -106,7 +106,7 @@ const Map = ({ predictedBird }) => {
                         </small>
                     </div>
                     <div
-                        className="w-full h-full mt-4"
+                        className="flex w-full h-full mt-4"
                         style={{
                             width: '70vw',
                             height: `calc(65vh - 64px)`,
