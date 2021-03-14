@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const BirdImage = ({ src, alt }) => (
     <div className="flex justify-center">
-        <img src={src} alt={alt} className="h-auto max-w-full align-middle border-none rounded shadow-lg max-h-72" />
+        <img src={src} alt={alt} className="h-auto max-w-full align-middle border-none rounded shadow-lg max-h-72 md:max-h-40" />
     </div>
 );
 
