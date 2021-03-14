@@ -41,11 +41,18 @@ func GetBird(c *gin.Context) {
 
 	natureServeData = <-natureServeChan
 	var payload SendBirdPayload
+	if len(natureServeData.Results) != 0 {
+		payload = SendBirdPayload{
+			ID:          prediction.ID,
+			Name:        prediction.Name,
+			SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
+		}
 
-	payload = SendBirdPayload{
-		ID:          prediction.ID,
-		Name:        prediction.Name,
-		SpeciesInfo: natureServeData.Results[0].SpeciesGlobal,
+	} else {
+		payload = SendBirdPayload{
+			ID:   prediction.ID,
+			Name: prediction.Name,
+		}
 	}
 
 	data := gin.H{

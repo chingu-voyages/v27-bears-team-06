@@ -6,29 +6,6 @@ import axios from 'axios';
 import settings from 'config/settings';
 import Notification from 'utils/Notification';
 
-const mockedBirdData = {
-    id: 1,
-    name: 'Laysan Albatross',
-    species_info: {
-        synonyms: ['Diomedea immutabilis'],
-        otherCommonNames: ['Albatros de Laysan', 'Albatros de Laysan'],
-        kingdom: 'Animalia',
-        phylum: 'Craniata',
-        taxclass: 'Aves',
-        taxorder: 'Procellariiformes',
-        family: 'Diomedeidae',
-        genus: 'Phoebastria',
-        taxonomicComments:
-            'Formerly in genus <i>Diomedea</i>; tranferred to <i>Phoebastria </i>by AOU (1997). Occasionally hybridizes with <i>P. nigripes</i> (AOU 1998).',
-        informalTaxonomy: 'Animals - Vertebrates - Birds',
-    },
-};
-
-const mockedBirdImage = {
-    imageUrl: 'https://res.cloudinary.com/dlnsbto5l/image/upload/v1615408776/wyhtswfthsuwjdptn39k.jpg',
-    imageAlt: null,
-};
-
 const Bird = () => {
     const [birdDetails, setBirdDetails] = useState(null);
     const [fileImage, setFileImage] = useState({ imageUrl: null, imageAlt: null });

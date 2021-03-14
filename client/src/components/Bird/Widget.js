@@ -42,7 +42,7 @@ function Widget({ onSuccess, loading }) {
 
     return (
         <div className="flex justify-around m-3">
-            <Button disabled={loading} showSpinner={loading} onClick={openWidget} label="Send Prediction" />
+            <Button disabled={loading} showSpinner={loading} onClick={openWidget} label={loading ? "Sending..." : "Send Prediction"} />
         </div>
     );
 }
