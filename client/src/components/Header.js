@@ -40,8 +40,8 @@ export default function Header(props) {
                             </h2>
                             <p className="mt-16 text-2xl font-light leading-relaxed text-white break-words max-w-prose-center md:break-words">
                                 <i className="las la-feather-alt"></i>
-                                Avian detects what kind of a bird is on a uploaded image using efficient collection of
-                                training data and helping a community to learn more about bird life in their area. Let's
+                                Avian detects what kind of a bird is on an uploaded image using efficient collection of
+                                training data and helping a community to learn more about birdlife in their area. Let's
                                 find your bird! To start just select an image to upload.
                             </p>
                         </div>
